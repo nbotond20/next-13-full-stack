@@ -1,22 +1,9 @@
 {
-  "parserOptions": {
-    "ecmaVersion": 2020, // Allows for the parsing of modern ECMAScript features
-    "sourceType": "module", // Allows for the use of imports
-    "ecmaFeatures": {
-      "jsx": true // Allows for the parsing of JSX
-    }
-  },
-  "settings": {
-    "react": {
-      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
-    }
-  },
   "env": {
     "browser": true,
-    "node": true,
-    "es6": true
+    "es6": true,
+    "node": true
   },
-  "plugins": ["no-only-tests"],
   "extends": [
     "next/core-web-vitals",
     "eslint:recommended",
@@ -28,22 +15,42 @@
     "plugin:import/typescript",
     "prettier"
   ],
+  "ignorePatterns": [
+    "lib",
+    "dist",
+    "public",
+    "schema.json",
+    "stats.json",
+    "pnpm-lock.yaml",
+    "!.storybook",
+    "*.svg",
+    "*.md",
+    "*.conf",
+    "Dockerfile"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true // Allows for the parsing of JSX
+    },
+    "ecmaVersion": 2020, // Allows for the parsing of modern ECMAScript features
+    "sourceType": "module" // Allows for the use of imports
+  },
+  "plugins": ["no-only-tests"],
   "rules": {
-    "react/prop-types": 0,
-    "react/display-name": 0,
-    "@typescript-eslint/no-non-null-assertion": 0,
     "@typescript-eslint/explicit-module-boundary-types": "off",
-    "@typescript-eslint/no-var-requires": 0,
-    "no-console": 1,
     "@typescript-eslint/no-namespace": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/triple-slash-reference": 0,
+    "import/no-named-as-default": 0,
     "import/no-unresolved": [
       2,
       {
         "ignore": ["@config", "@app/", "@cypress", "@model", "@styles", "@components", "@utils"]
       }
     ],
-    "import/no-named-as-default": 0,
+    "no-console": 1,
+    "no-only-tests/no-only-tests": "error",
     "no-restricted-imports": [
       "error",
       {
@@ -60,19 +67,12 @@
         ]
       }
     ],
-    "no-only-tests/no-only-tests": "error"
+    "react/display-name": 0,
+    "react/prop-types": 0
   },
-  "ignorePatterns": [
-    "lib",
-    "dist",
-    "public",
-    "schema.json",
-    "stats.json",
-    "pnpm-lock.yaml",
-    "!.storybook",
-    "*.svg",
-    "*.md",
-    "*.conf",
-    "Dockerfile"
-  ]
+  "settings": {
+    "react": {
+      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+    }
+  }
 }
