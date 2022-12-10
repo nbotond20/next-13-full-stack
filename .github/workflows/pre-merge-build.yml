@@ -34,7 +34,7 @@ jobs:
         run: 'pnpm lint'
 
       - name: 'PNPM: test'
-        run: 'pnpm test'
+        run: 'pnpm run test:ci:report'
 
       - name: Publish Junit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
