@@ -24,7 +24,7 @@ specifiers:
   husky: ^8.0.2
   jest: ^29.3.1
   jest-environment-jsdom: ^29.3.1
-  jest-unit: ^0.0.2
+  jest-junit: ^14.0.0
   lint-staged: ^13.1.0
   next: 13.0.6
   prettier: ^2.8.1
@@ -64,7 +64,7 @@ devDependencies:
   husky: 8.0.2
   jest: 29.3.1_@types+node@18.11.12
   jest-environment-jsdom: 29.3.1
-  jest-unit: 0.0.2_typescript@4.9.4
+  jest-junit: 14.0.1
 
 packages:
 
@@ -3174,6 +3174,16 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
+  /jest-junit/14.0.1:
+    resolution: {integrity: sha512-h7/wwzPbllgpQhhVcRzRC76/cc89GlazThoV1fDxcALkf26IIlRsu/AcTG64f4nR2WPE3Cbd+i/sVf+NCUHrWQ==}
+    engines: {node: '>=10.12.0'}
+    dependencies:
+      mkdirp: 1.0.4
+      strip-ansi: 6.0.1
+      uuid: 8.3.2
+      xml: 1.0.1
+    dev: true
+
   /jest-leak-detector/29.3.1:
     resolution: {integrity: sha512-3DA/VVXj4zFOPagGkuqHnSQf1GZBmmlagpguxEERO6Pla2g84Q1MaVIB3YMxgUaFIaYag8ZnTyQgiZ35YEqAQA==}
     engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
@@ -3337,17 +3347,6 @@ packages:
       semver: 7.3.8
     transitivePeerDependencies:
       - supports-color
-
-  /jest-unit/0.0.2_typescript@4.9.4:
-    resolution: {integrity: sha512-k+S2BK7oES3924x660rFfv6T+v0bgUnpdOjU8dOaPmC4dDpaGgdHiboUIktXpwRE2nYJKOMJRGinWA/fH5RCxQ==}
-    peerDependencies:
-      jest-mock-extended: ^2.x
-      reflect-metadata: ^0.1.x
-    dependencies:
-      ts-essentials: 7.0.3_typescript@4.9.4
-    transitivePeerDependencies:
-      - typescript
-    dev: true
 
   /jest-util/29.3.1:
     resolution: {integrity: sha512-7YOVZaiX7RJLv76ZfHt4nbNEzzTRiMW/IiOG7ZOKmTXmoGBxUDefgMAxQubu6WPVqP5zSzAdZG0FfLcC7HOIFQ==}
@@ -3702,6 +3701,12 @@ packages:
   /minimist/1.2.7:
     resolution: {integrity: sha512-bzfL1YUZsP41gmu/qjrEk0Q6i2ix/cVeAhbCbqH9u3zYutS1cLg00qhrD0M2MVdCcx4Sc0UpP2eBWo9rotpq6g==}
     dev: false
+
+  /mkdirp/1.0.4:
+    resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dev: true
 
   /ms/2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
@@ -4557,14 +4562,6 @@ packages:
       punycode: 2.1.1
     dev: true
 
-  /ts-essentials/7.0.3_typescript@4.9.4:
-    resolution: {integrity: sha512-8+gr5+lqO3G84KdiTSMRLtuyJ+nTBVRKuCrK4lidMPdVeEp0uqC875uE5NMcaA7YYMN7XsNiFQuMvasF8HT/xQ==}
-    peerDependencies:
-      typescript: '>=3.7.0'
-    dependencies:
-      typescript: 4.9.4
-    dev: true
-
   /tsconfig-paths/3.14.1:
     resolution: {integrity: sha512-fxDhWnFSLt3VuTwtvJt5fpwxBHg5AdKWMsgcPOOIilyjymcYVZoCQF8fvFRezCNfblEXmi+PcM1eYHeOAgXCOQ==}
     dependencies:
@@ -4623,6 +4620,7 @@ packages:
     resolution: {integrity: sha512-Uz+dTXYzxXXbsFpM86Wh3dKCxrQqUcVMxwU54orwlJjOpO3ao8L7j5lH+dWfTwgCwIuM9GQ2kvVotzYJMXTBZg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
+    dev: false
 
   /unbox-primitive/1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
@@ -4659,6 +4657,11 @@ packages:
     dependencies:
       querystringify: 2.2.0
       requires-port: 1.0.0
+    dev: true
+
+  /uuid/8.3.2:
+    resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
     dev: true
 
   /v8-to-istanbul/9.0.1:
@@ -4790,6 +4793,10 @@ packages:
   /xml-name-validator/4.0.0:
     resolution: {integrity: sha512-ICP2e+jsHvAj2E2lIHxa5tjXRlKDJo4IdvPvCXbXQGdzSfmSpNVyIKMvoZHjDY9DP0zV17iI85o90vRFXNccRw==}
     engines: {node: '>=12'}
+    dev: true
+
+  /xml/1.0.1:
+    resolution: {integrity: sha512-huCv9IH9Tcf95zuYCsQraZtWnJvBtLVE0QHMOs8bWyZAFZNDcYjsPq1nEx8jKA9y+Beo9v+7OBPRisQTjinQMw==}
     dev: true
 
   /xmlchars/2.2.0:
