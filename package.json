@@ -64,6 +64,7 @@
     "lint-staged": "lint-staged --verbose --config lint-staged.config.js",
     "lint:fix": "eslint \"**/*.{ts,tsx,json}\" --quiet --fix",
     "prepare": "husky install",
+    "postinstall": "npx prisma generate",
     "start": "next start",
     "test": "jest --watch",
     "test:ci": "jest",
