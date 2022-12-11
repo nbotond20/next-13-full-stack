@@ -21,7 +21,7 @@
     "public",
     "schema.json",
     "stats.json",
-    "pnpm-lock.yaml",
+    "package-lock.yaml",
     "!.storybook",
     "*.svg",
     "*.md",

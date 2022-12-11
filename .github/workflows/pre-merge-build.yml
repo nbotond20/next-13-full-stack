@@ -17,24 +17,17 @@ jobs:
         with:
           node-version: 16
 
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
-        id: pnpm-install
-        with:
-          version: 7
-          run_install: false
-
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
 
-      - name: 'PNPM: build'
-        run: 'pnpm build'
+      - name: 'NPM: build'
+        run: 'npm run build'
 
       - name: 'EsLint: checking lint rules'
-        run: 'pnpm lint'
+        run: 'npm run lint'
 
-      - name: 'PNPM: test'
-        run: 'pnpm run test:ci:report'
+      - name: 'NPM: test'
+        run: 'npm run test:ci:report'
 
       - name: Publish Junit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1

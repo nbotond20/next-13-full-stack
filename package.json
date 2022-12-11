@@ -61,7 +61,6 @@
     "lint": "eslint \"**/*.{ts,tsx,json}\"",
     "lint-staged": "lint-staged --verbose --config lint-staged.config.js",
     "lint:fix": "eslint \"**/*.{ts,tsx,json}\" --quiet --fix",
-    "preinstall": "npx only-allow pnpm",
     "prepare": "husky install",
     "start": "next start",
     "test": "jest --watch",

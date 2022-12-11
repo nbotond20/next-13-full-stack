@@ -10,4 +10,4 @@ updates:
       schedule:
           interval: "daily"
       open-pull-requests-limit: 15
-# Dependabot trigger #2
+      versioning-strategy: increase
