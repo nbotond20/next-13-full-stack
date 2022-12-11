@@ -1,7 +1,9 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
-import Head from '../app/head'
+
 import '@testing-library/jest-dom'
+import { render, screen } from '@testing-library/react'
+
+import Head from '../app/head'
 
 describe('Home', () => {
   it('renders a heading', () => {
