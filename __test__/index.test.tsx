@@ -3,13 +3,13 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 
-import Head from '../app/head'
+import MUITest from '../app/MUITest'
 
 describe('Home', () => {
   it('renders a heading', () => {
-    render(<Head />)
+    render(<MUITest />)
 
-    const heading = screen.getByText('Create Next App')
+    const heading = screen.getByText('MUI Test')
 
     expect(heading).toBeInTheDocument()
   })
