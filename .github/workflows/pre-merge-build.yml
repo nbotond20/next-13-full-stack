@@ -29,9 +29,9 @@ jobs:
       - name: 'NPM: test'
         run: 'npm run test:ci:report'
 
-      - name: Publish Junit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v1
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
-          files: 'reports/jest-junit.xml'
+          junit_files: 'reports/jest-junit.xml'
           check_name: 'Unit test results'
