@@ -26,7 +26,8 @@
     "*.svg",
     "*.md",
     "*.conf",
-    "Dockerfile"
+    "Dockerfile",
+    "/prisma"
   ],
   "parserOptions": {
     "ecmaFeatures": {
