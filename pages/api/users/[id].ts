@@ -8,7 +8,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (!req.query.id) {
       return res.status(404).json({ message: 'No user found' })
     }
-    const { user } = await getUser(Number(req.query.id))
+    const { user } = await getUser(req.query.id as string)
     return res.status(200).json(user)
   }
 }
