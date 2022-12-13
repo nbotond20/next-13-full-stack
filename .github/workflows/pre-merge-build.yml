@@ -6,8 +6,9 @@ on:
 
 permissions:
   id-token: write
-  contents: read
+  contents: write
   checks: write
+  issues: write
 
 jobs:
   pr-validation:
@@ -34,7 +35,7 @@ jobs:
       - name: 'NPM: test'
         run: 'npm run test:ci:report'
 
-      - name: Publish Test Results
+      - name: Publish Test Results   
         uses: EnricoMi/publish-unit-test-result-action@v2
         if: always()
         with:
