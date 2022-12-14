@@ -5,9 +5,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
-  issues: read
-  checks: write
+  contents: write
   pull-requests: write
 
 jobs:
