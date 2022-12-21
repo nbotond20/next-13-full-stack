@@ -6,7 +6,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/lab": "5.0.0-alpha.112",
     "@mui/material": "5.11.0",
-    "@mui/system": "^5.10.17",
+    "@mui/system": "^5.11.1",
     "@prisma/client": "^4.7.1",
     "@types/node": "18.11.17",
     "@types/react": "18.0.26",
