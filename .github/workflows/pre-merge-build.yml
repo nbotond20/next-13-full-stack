@@ -13,8 +13,12 @@ jobs:
   pr-validation:
     name: Build
     runs-on: ubuntu-latest
-    environment: preview
+    environment: Preview
     steps:
+      - name: Show repo env secret
+        run: |
+          echo ${{ secrets.DATABASE_URL }}
+
       - name: Checkout
         uses: actions/checkout@v3
 
