@@ -3,6 +3,6 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  staticPageGenerationTimeout: 480,
+  staticPageGenerationTimeout: 120,
 }
 module.exports = nextConfig
