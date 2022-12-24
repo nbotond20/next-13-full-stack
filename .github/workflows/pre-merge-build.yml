@@ -22,6 +22,11 @@ jobs:
         with:
           node-version: 16
 
+      - name: Create env file
+        run: |
+          touch .env
+          echo 'DATABASE_URL="${{ secrets.DATABASE_URL }}"' >> .env
+
       - name: Install dependencies
         run: npm install
 
