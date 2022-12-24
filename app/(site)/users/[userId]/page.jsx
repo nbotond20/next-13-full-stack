@@ -7,7 +7,7 @@ import User from './user'
 export async function generateStaticParams() {
   const { users } = await getUsers()
 
-  return users.map(user => ({
+  return users?.map(user => ({
     userId: user.id,
   }))
 }
