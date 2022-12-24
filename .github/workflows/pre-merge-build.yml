@@ -11,14 +11,9 @@ permissions:
 
 jobs:
   pr-validation:
-    name: Build
+    name: Build & Test
     runs-on: ubuntu-latest
-    environment: Preview
     steps:
-      - name: Show repo env secret
-        run: |
-          echo ${{ secrets.DATABASE_URL }}
-
       - name: Checkout
         uses: actions/checkout@v3
 
