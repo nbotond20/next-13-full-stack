@@ -4,7 +4,11 @@ import Link from 'next/link'
 
 import Provider from '../(site)/provider'
 
-export default function AuthLayout({ children }) {
+interface AuthLayoutProps {
+  children: React.ReactNode
+}
+
+export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
     <html lang="en">
       <head />

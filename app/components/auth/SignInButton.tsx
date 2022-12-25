@@ -19,7 +19,7 @@ const SignInButton = () => {
           </span>
         </Box>
 
-        <button onClick={() => signOut()}>Sign Out</button>
+        <button onClick={() => signOut({ callbackUrl: '/' })}>Sign Out</button>
       </>
     )
   }

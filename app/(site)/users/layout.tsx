@@ -15,12 +15,17 @@ async function getData() {
   return users
 }
 
-const UsersLayout = async ({ children }) => {
+interface UsersLayoutProps {
+  children: React.ReactNode
+}
+
+const UsersLayout = async ({ children }: UsersLayoutProps) => {
   const users = await getData()
 
   return (
     <section>
       <aside>
+        {/* @ts-expect-error Server Component */}
         <Users users={users} />
       </aside>
       <main>{children}</main>
