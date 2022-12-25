@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+import { Auth } from '@app/components/auth/Auth'
 import Link from 'next/link'
 
 import LoginButton from '../components/auth/SignInButton'
@@ -14,9 +15,11 @@ const Header = () => {
           <li>
             <Link href="/">Home</Link>
           </li>
-          <li>
-            <Link href="/users">Users</Link>
-          </li>
+          <Auth>
+            <li>
+              <Link href="/users">Users</Link>
+            </li>
+          </Auth>
         </ul>
         <ul>
           <li>

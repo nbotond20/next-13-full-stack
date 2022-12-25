@@ -2,14 +2,13 @@
 
 import React from 'react'
 
+import { Button } from '@mui/material'
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 
-import Button from '../ui/button'
-
-const GoogleLoginButton = () => {
+export const GoogleLoginButton = () => {
   const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl')
+  const callbackUrl = searchParams.get('callbackUrl') || undefined
 
   return (
     <Button onClick={() => signIn('google', { callbackUrl })}>
@@ -30,5 +29,3 @@ const GoogleLoginButton = () => {
     </Button>
   )
 }
-
-export default GoogleLoginButton

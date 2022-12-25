@@ -1,6 +1,8 @@
 import React from 'react'
 
-const User = ({ user }) => {
+import { User as PrismaUser } from '@prisma/client'
+
+const User = ({ user }: { user: PrismaUser }) => {
   return (
     <section>
       <div>

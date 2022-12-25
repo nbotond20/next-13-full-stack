@@ -1,11 +1,14 @@
 // import { getUsers } from '@/lib/prisma/users'
 import React from 'react'
 
+import { User as PrismaUser } from '@prisma/client'
 import Link from 'next/link'
 
-const Users = async ({ users }) => {
-  // const { users } = await getUsers()
+interface UsersProps {
+  users: PrismaUser[]
+}
 
+const Users = async ({ users }: UsersProps) => {
   return (
     <section>
       <div>
