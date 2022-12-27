@@ -12,4 +12,12 @@ export default NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  session: {
+    strategy: 'jwt',
+  },
+  // Use this instead of default login/logout pages
+  /* pages: {
+    signIn: '/signin',
+    signOut: '/signout',
+  }, */
 })

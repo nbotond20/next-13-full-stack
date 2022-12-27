@@ -1,18 +1,26 @@
 import React from 'react'
 
 import { Auth } from '@app/components/auth/Auth'
+import { getUsers } from '@db/users'
 
-const Page = () => {
+import Users from './users'
+
+async function getData() {
+  const { users } = await getUsers()
+  if (!users) {
+    throw new Error('Failed to fetch data')
+  }
+
+  return users
+}
+
+const Page = async () => {
+  const users = await getData()
+
   return (
     <Auth>
       <section>
-        <div>
-          <h1>Welcome</h1>
-          <div>
-            <span>👈🏼</span>
-            <span>select a user</span>
-          </div>
-        </div>
+        <Users users={users} />
       </section>
     </Auth>
   )

@@ -2,9 +2,9 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer>
+    <footer style={{ backgroundColor: '#3ff79b', position: 'fixed', bottom: 0, width: '100vw', height: '7vh' }}>
       <div>
-        <p>NextJS 13 Demo</p>
+        <p>This is a footer</p>
       </div>
     </footer>
   )

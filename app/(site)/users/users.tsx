@@ -8,7 +8,7 @@ interface UsersProps {
   users: PrismaUser[]
 }
 
-const Users = async ({ users }: UsersProps) => {
+const Users = ({ users }: UsersProps) => {
   return (
     <section>
       <div>
