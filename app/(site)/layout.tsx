@@ -8,7 +8,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head />
-      <body>
+      <body style={{ margin: 0, paddingTop: '7vh', paddingBottom: '7vh', width: '100vw', height: '86vh' }}>
         <Provider>
           <Header />
           <main>{children}</main>
