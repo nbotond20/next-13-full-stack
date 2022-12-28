@@ -3,6 +3,8 @@ const nextConfig = {
   experimental: {
     appDir: true,
   },
-  staticPageGenerationTimeout: 120,
+  images: {
+    domains: ['image.tmdb.org'],
+  },
 }
 module.exports = nextConfig
