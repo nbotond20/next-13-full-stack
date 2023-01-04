@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Auth } from '@app/components/auth/Auth'
 import { getUserById } from '@db/users'
+import { Auth } from 'components/auth/Auth'
 
 import User from './user'
 

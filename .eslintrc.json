@@ -19,15 +19,16 @@
     "lib",
     "dist",
     "public",
-    "schema.json",
     "stats.json",
-    "package-lock.yaml",
+    "package-lock.json",
     "!.storybook",
     "*.svg",
     "*.md",
     "*.conf",
     "Dockerfile",
-    "/prisma"
+    "*.prisma",
+    "*.sql",
+    "*.toml"
   ],
   "parserOptions": {
     "ecmaFeatures": {

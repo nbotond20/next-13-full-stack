@@ -2,17 +2,16 @@
 
 import React from 'react'
 
-import { Button } from '@mui/material'
 import { useSession, signIn, signOut } from 'next-auth/react'
 
 const SignInButton = () => {
   const { data: session } = useSession()
 
   if (session) {
-    return <Button onClick={() => signOut({ callbackUrl: '/' })}>Sign Out</Button>
+    return <button onClick={() => signOut({ callbackUrl: '/' })}>Sign Out</button>
   }
 
-  return <Button onClick={() => signIn()}>Sign In</Button>
+  return <button onClick={() => signIn()}>Sign In</button>
 }
 
 export default SignInButton

@@ -3,7 +3,7 @@ import React from 'react'
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 
-import { TestComponent } from '../app/components/Test'
+import { TestComponent } from '../components/Test'
 
 describe('Home', () => {
   it('renders a heading', () => {
