@@ -27,6 +27,9 @@ jobs:
         run: |
           touch .env
           echo 'DATABASE_URL="${{ secrets.DATABASE_URL }}"' >> .env
+          echo 'MOVIES_DB_API_IMAGE_URL="${{ secrets.MOVIES_DB_API_IMAGE_URL }}"' >> .env
+          echo 'MOVIES_DB_API_URL="${{ secrets.MOVIES_DB_API_URL }}"' >> .env
+          echo 'MOVIES_DB_API_KEY="${{ secrets.MOVIES_DB_API_KEY }}"' >> .env
 
       - name: Install dependencies
         run: npm install
