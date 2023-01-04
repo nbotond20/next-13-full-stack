@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { GoogleLoginButton } from '../../components/auth/GoogleSignInButton'
+import { GoogleLoginButton } from '../../../components/auth/GoogleSignInButton'
 
 const SignInPage = () => {
   return <GoogleLoginButton />

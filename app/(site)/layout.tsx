@@ -1,5 +1,6 @@
 import React from 'react'
 
+import '../global.css'
 import Footer from './footer'
 import Header from './header'
 import Provider from './provider'

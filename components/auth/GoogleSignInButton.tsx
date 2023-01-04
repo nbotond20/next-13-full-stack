@@ -2,7 +2,6 @@
 
 import React from 'react'
 
-import { Button } from '@mui/material'
 import { signIn } from 'next-auth/react'
 import { useSearchParams } from 'next/navigation'
 
@@ -11,7 +10,7 @@ export const GoogleLoginButton = () => {
   const callbackUrl = searchParams.get('callbackUrl') || undefined
 
   return (
-    <Button onClick={() => signIn('google', { callbackUrl })}>
+    <button onClick={() => signIn('google', { callbackUrl })}>
       <svg
         aria-hidden="true"
         focusable="false"
@@ -26,6 +25,6 @@ export const GoogleLoginButton = () => {
         ></path>
       </svg>
       Continue with Google
-    </Button>
+    </button>
   )
 }

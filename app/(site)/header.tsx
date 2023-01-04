@@ -4,7 +4,7 @@ import React from 'react'
 
 import Link from 'next/link'
 
-import LoginButton from '../components/auth/SignInButton'
+import LoginButton from '../../components/auth/SignInButton'
 
 const Header = () => {
   return (
