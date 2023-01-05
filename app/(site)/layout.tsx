@@ -1,7 +1,6 @@
 import React from 'react'
 
 import '../global.css'
-import Footer from './footer'
 import Header from './header'
 import Provider from './provider'
 
@@ -9,11 +8,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head />
-      <body style={{ margin: 0, paddingTop: '7vh', paddingBottom: '7vh', width: '100vw', height: '86vh' }}>
+      <body>
         <Provider>
           <Header />
-          <main>{children}</main>
-          <Footer />
+          <main style={{ marginTop: '73px' }}>{children}</main>
         </Provider>
       </body>
     </html>
