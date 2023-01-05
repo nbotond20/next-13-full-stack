@@ -43,6 +43,8 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Movie         Movie[]
+  Rating        Rating[]
 }
 
 model VerificationToken {
@@ -51,4 +53,26 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Movie {
+  id        String   @id @default(cuid())
+  title     String
+  date      DateTime
+  overview  String
+  imgPath   String
+  rating    Float
+  voteCount Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  Rating    Rating[]
+}
+
+model Rating {
+  id      String @id @default(cuid())
+  rating  Float
+  movie   Movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String
 }
