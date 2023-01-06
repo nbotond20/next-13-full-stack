@@ -13,8 +13,6 @@ interface Movie {
   poster_path: string
 }
 
-console.log('Movies.tsx')
-
 interface MoviesProps {
   results: Movie[]
   totalResults: number
@@ -24,6 +22,7 @@ interface MoviesProps {
   MOVIES_DB_API_URL: string
   MOVIES_DB_API_KEY: string
 }
+console.log('Movies.tsx')
 const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 function useMovies(page: number, MOVIES_DB_API_URL: string, MOVIES_DB_API_KEY: string) {
