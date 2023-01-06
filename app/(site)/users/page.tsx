@@ -19,9 +19,7 @@ const Page = async () => {
 
   return (
     <Auth>
-      <section>
-        <Users users={users} />
-      </section>
+      <Users users={users} />
     </Auth>
   )
 }

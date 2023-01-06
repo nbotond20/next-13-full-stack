@@ -14,10 +14,10 @@ export default NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
+    maxAge: 1 * 60 * 60, // 1 hour
   },
   // Use this instead of default login/logout pages
-  /* pages: {
+  pages: {
     signIn: '/signin',
-    signOut: '/signout',
-  }, */
+  },
 })

@@ -6,12 +6,12 @@ import Provider from './provider'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="w-full h-full">
       <head />
-      <body>
+      <body className="w-full h-full pt-[73px]">
         <Provider>
           <Header />
-          <main style={{ marginTop: '73px' }}>{children}</main>
+          {children}
         </Provider>
       </body>
     </html>

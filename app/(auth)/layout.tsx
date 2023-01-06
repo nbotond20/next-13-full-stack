@@ -1,8 +1,8 @@
 import React from 'react'
 
-import Link from 'next/link'
-
 import Provider from '../(site)/provider'
+import '../global.css'
+import Header from './header'
 
 interface AuthLayoutProps {
   children: React.ReactNode
@@ -10,21 +10,12 @@ interface AuthLayoutProps {
 
 export default function AuthLayout({ children }: AuthLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" className="w-full h-full">
       <head />
-      <body>
+      <body className="w-full h-full flex justify-center items-center">
+        <Header />
         <Provider>
-          <main>
-            <div>
-              <Link href="/">
-                <span>Home</span>
-              </Link>
-              <div>
-                <h1>Sign in to your account</h1>
-              </div>
-              <div>{children}</div>
-            </div>
-          </main>
+          <div>{children}</div>
         </Provider>
       </body>
     </html>
