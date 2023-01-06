@@ -1,9 +1,10 @@
 'use client'
 
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import Image from 'next/image'
 import Link from 'next/link'
+import useSWR from 'swr'
 
 interface Movie {
   id: number
@@ -12,21 +13,66 @@ interface Movie {
   poster_path: string
 }
 
+console.log('Movies.tsx')
+
 interface MoviesProps {
   results: Movie[]
   totalResults: number
   page: number
   elementsPerPage: number
   imgURL: string
+  MOVIES_DB_API_URL: string
+  MOVIES_DB_API_KEY: string
+}
+const fetcher = (url: string) => fetch(url).then(res => res.json())
+
+function useMovies(page: number, MOVIES_DB_API_URL: string, MOVIES_DB_API_KEY: string) {
+  const { data, error, isLoading } = useSWR(
+    `${MOVIES_DB_API_URL}/trending/all/week?api_key=${MOVIES_DB_API_KEY}&page=${page}`,
+    fetcher
+  )
+
+  return {
+    movies: data?.results,
+    isLoading,
+    error,
+  } as { movies: Movie[]; isLoading: boolean; error: Error }
 }
 
-export const Movies = ({ page, totalResults, results, elementsPerPage, imgURL }: MoviesProps) => {
+export const Movies = ({
+  totalResults,
+  elementsPerPage,
+  imgURL,
+  MOVIES_DB_API_KEY,
+  MOVIES_DB_API_URL,
+}: MoviesProps) => {
+  const [pageNum, setPageNum] = React.useState(1)
+  const { movies } = useMovies(pageNum, MOVIES_DB_API_URL, MOVIES_DB_API_KEY)
+
+  const [moviesData, setMoviesData] = React.useState(movies)
+
+  const handleNextPage = useCallback(() => {
+    if (pageNum < totalResults / elementsPerPage) {
+      setPageNum(pageNum + 1)
+    }
+  }, [pageNum, totalResults, elementsPerPage])
+
+  const handlePrevPage = useCallback(() => {
+    if (pageNum > 1) {
+      setPageNum(pageNum - 1)
+    }
+  }, [pageNum])
+
+  React.useEffect(() => {
+    setMoviesData(movies)
+  }, [movies])
+
   return (
     <div>
       <h1 className="font-bold text-6xl py-5 ml-28">Movies</h1>
       <div className="grid grid-cols-3 gap-5 py-5 px-28 justify-center">
-        {results &&
-          results.map((movie: Movie) => (
+        {moviesData &&
+          moviesData?.map((movie: Movie) => (
             <Link
               key={movie.id}
               href={`/movies/${movie.id}`}
@@ -51,13 +97,16 @@ export const Movies = ({ page, totalResults, results, elementsPerPage, imgURL }:
         <span className="text-sm text-gray-700 dark:text-gray-400">
           Showing{' '}
           <span className="font-semibold text-gray-900 dark:text-white">
-            {page * elementsPerPage - elementsPerPage + 1}
+            {pageNum * elementsPerPage - elementsPerPage + 1}
           </span>{' '}
-          to <span className="font-semibold text-gray-900 dark:text-white">{page * elementsPerPage}</span> of{' '}
+          to <span className="font-semibold text-gray-900 dark:text-white">{pageNum * elementsPerPage}</span> of{' '}
           <span className="font-semibold text-gray-900 dark:text-white">{totalResults}</span> Entries
         </span>
         <div className="inline-flex mt-2 xs:mt-0">
-          <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+          <button
+            onClick={() => handlePrevPage()}
+            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
             <svg
               aria-hidden="true"
               className="w-5 h-5 mr-2"
@@ -73,7 +122,10 @@ export const Movies = ({ page, totalResults, results, elementsPerPage, imgURL }:
             </svg>
             Prev
           </button>
-          <button className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+          <button
+            onClick={() => handleNextPage()}
+            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+          >
             Next
             <svg
               aria-hidden="true"

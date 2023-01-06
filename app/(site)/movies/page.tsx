@@ -16,6 +16,8 @@ export default async function Page() {
   const elementPerPage = 20
 
   const imgURL = process.env.MOVIES_DB_API_IMAGE_URL!
+  const MOVIES_DB_API_URL = process.env.MOVIES_DB_API_URL!
+  const MOVIES_DB_API_KEY = process.env.MOVIES_DB_API_KEY!
 
   return (
     <section>
@@ -25,6 +27,8 @@ export default async function Page() {
         page={page}
         elementsPerPage={elementPerPage}
         imgURL={imgURL}
+        MOVIES_DB_API_URL={MOVIES_DB_API_URL}
+        MOVIES_DB_API_KEY={MOVIES_DB_API_KEY}
       />
     </section>
   )
