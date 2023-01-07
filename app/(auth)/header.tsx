@@ -2,8 +2,6 @@ import React from 'react'
 
 import Link from 'next/link'
 
-console.log('Header')
-
 const Header = () => {
   return (
     <header>
