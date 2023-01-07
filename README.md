@@ -1,34 +1,31 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+App demo: https://next-13-full-stack.vercel.app/
 
 ## Getting Started
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
+1. Clone the repo
+2. Create a `.env` file
 ```
+MOVIES_DB_API_IMAGE_URL=https://image.tmdb.org/t/p/w500/
+MOVIES_DB_API_URL=https://api.themoviedb.org/3/
+MOVIES_DB_API_KEY=<api_key>
+DATABASE_URL=postgresql://app:app@localhost:5432/db
+GOOGLE_CLIENT_ID=<google_api_client_id>
+GOOGLE_CLIENT_SECRET=<google_api_client_secret>
+NEXTAUTH_SECRET=<random string>
+NEXTAUTH_URL=http://localhost:3000
+```
+2. Install the dependencies by running `npm i`
+3. Start the local postgres database by running `docker-compose up` in the root directory
+   * You can also use a hosted database as well. If you don't have CREATEDB permissions you need to specify a `SHADOW_DATABASE_URL=` in the `.env` file
+4. The first time you need to do a Prisma migration. To do that run ```npx prisma migrate dev```
+5. To start the development run `npm run dev`
+6. You can access the site on [http://localhost:3000](http://localhost:3000)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Design
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- For stlying we use `Tailwind` with the [Flowbite](https://flowbite.com) component library 
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Development
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Issue tracking: [Issues](https://github.com/users/nbotond20/projects/7/views/1?query=is%3Aopen+sort%3Aupdated-desc)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
