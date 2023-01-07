@@ -5,7 +5,7 @@ import Link from 'next/link'
 const Header = () => {
   return (
     <header>
-      <nav className="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 h-[73px] items-center flex">
+      <nav className="bg-white px-2 sm:px-4 py-2.5 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600 h-[60px] items-center flex">
         <div className="flex flex-wrap items-center justify-between w-full">
           <Link href="/" className="flex items-center justify-center gap-1">
             <svg

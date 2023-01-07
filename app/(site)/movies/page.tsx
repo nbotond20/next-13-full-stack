@@ -20,16 +20,14 @@ export default async function Page() {
   const MOVIES_DB_API_KEY = process.env.MOVIES_DB_API_KEY!
 
   return (
-    <section>
-      <Movies
-        results={results}
-        totalResults={total_results}
-        page={page}
-        elementsPerPage={elementPerPage}
-        imgURL={imgURL}
-        MOVIES_DB_API_URL={MOVIES_DB_API_URL}
-        MOVIES_DB_API_KEY={MOVIES_DB_API_KEY}
-      />
-    </section>
+    <Movies
+      results={results}
+      totalResults={total_results}
+      page={page}
+      elementsPerPage={elementPerPage}
+      imgURL={imgURL}
+      MOVIES_DB_API_URL={MOVIES_DB_API_URL}
+      MOVIES_DB_API_KEY={MOVIES_DB_API_KEY}
+    />
   )
 }
