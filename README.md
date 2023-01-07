@@ -21,6 +21,8 @@ NEXTAUTH_URL=http://localhost:3000
 5. To start the development run `npm run dev`
 6. You can access the site on [http://localhost:3000](http://localhost:3000)
 
+7. (On Linux or in WSL please run `chmod ug+x .husky/*` command. This is needed for the pre-commit hooks to work) 
+
 ## Design
 
 - For stlying we use `Tailwind` with the [Flowbite](https://flowbite.com) component library 
