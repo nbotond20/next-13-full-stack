@@ -67,8 +67,8 @@ export const Movies = ({
 
   return (
     <div>
-      <h1 className="font-bold text-6xl py-5 ml-28">Movies</h1>
-      <div className="grid grid-cols-3 gap-5 py-5 px-28 justify-center">
+      <h1 className="font-bold text-6xl py-5 ml-0 sm:ml-20 lg:ml-10 dark:text-white">Movies</h1>
+      <div className="grid grid-cols-1 sm:px-20 lg:grid-cols-2 3xl:grid-cols-3 lg:px-10 px-0 gap-5 py-5 justify-center items-center">
         {moviesData &&
           moviesData?.map((movie: Movie) => (
             <Link
@@ -77,7 +77,7 @@ export const Movies = ({
               className="flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
             >
               <Image
-                className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+                className="object-cover w-full rounded-t-lg h-96 lg:h-auto lg:w-48 lg:rounded-none lg:rounded-l-lg"
                 src={`${imgURL}/${movie.poster_path}`}
                 alt=""
                 width={500}

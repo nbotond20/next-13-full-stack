@@ -6,12 +6,12 @@ import Provider from './provider'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="w-full h-full">
+    <html lang="en" className="w-full h-screen overflow-hidden">
       <head />
-      <body className="w-full h-full pt-[73px]">
+      <body className="w-full h-screen overflow-hidden bg-white dark:bg-gray-700">
         <Provider>
           <Header />
-          {children}
+          <div className="h-[calc(100vh-60px)] overflow-auto">{children}</div>
         </Provider>
       </body>
     </html>

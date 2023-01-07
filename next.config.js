@@ -4,7 +4,7 @@ const nextConfig = {
     appDir: true,
   },
   images: {
-    domains: ['image.tmdb.org', 'lh3.googleusercontent.com'],
+    domains: ['image.tmdb.org', 'lh3.googleusercontent.com', 'flowbite.com'],
   },
 }
 module.exports = nextConfig
