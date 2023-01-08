@@ -44,6 +44,7 @@
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/triple-slash-reference": 0,
     "import/no-named-as-default": 0,
+    "import/no-unresolved": 2,
     "no-console": 1,
     "no-only-tests/no-only-tests": "error",
     "no-restricted-imports": "error",
