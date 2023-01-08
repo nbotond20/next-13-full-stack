@@ -16,7 +16,6 @@
     "prettier"
   ],
   "ignorePatterns": [
-    "lib",
     "dist",
     "public",
     "stats.json",
@@ -45,30 +44,9 @@
     "@typescript-eslint/no-var-requires": 0,
     "@typescript-eslint/triple-slash-reference": 0,
     "import/no-named-as-default": 0,
-    "import/no-unresolved": [
-      2,
-      {
-        "ignore": ["@config", "@app/", "@cypress", "@model", "@styles", "@components", "@utils"]
-      }
-    ],
     "no-console": 1,
     "no-only-tests/no-only-tests": "error",
-    "no-restricted-imports": [
-      "error",
-      {
-        "patterns": [
-          {
-            "group": ["@mui/system"],
-            "importNames": ["Box"],
-            "message": "Use 'Box' from @mui/material instead."
-          },
-          {
-            "group": ["!@mui/icons-material/*"],
-            "message": "Only direct imports are allowed from @mui/icons-material"
-          }
-        ]
-      }
-    ],
+    "no-restricted-imports": "error",
     "react/display-name": 0,
     "react/prop-types": 0
   },
