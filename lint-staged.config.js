@@ -9,6 +9,5 @@ module.exports = async files => {
   )
 
   const filteredFiles = files.filter((_, i) => !isIgnored[i]).map(path => `"${path}"`)
-
-  return [`eslint ${filteredFiles.join(' ')}`]
+  return [`eslint ${filteredFiles.join(' ')} --max-warnings=0`]
 }
