@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { getUsers } from '@db/users'
-import { Auth } from 'components/auth/Auth'
 
 import Users from './users'
 
@@ -17,11 +16,7 @@ async function getData() {
 const Page = async () => {
   const users = await getData()
 
-  return (
-    <Auth>
-      <Users users={users} />
-    </Auth>
-  )
+  return <Users users={users} />
 }
 
 export default Page
