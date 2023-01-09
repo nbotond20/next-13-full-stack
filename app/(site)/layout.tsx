@@ -8,7 +8,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className="w-full h-screen overflow-hidden">
       <head />
-      <body className="w-full h-screen overflow-hidden bg-white dark:bg-gray-700">
+      <body className="w-full h-screen overflow-hidden bg-white dark:bg-gray-900">
         <Provider>
           <Header />
           <div className="h-[calc(100vh-60px)] overflow-auto">{children}</div>

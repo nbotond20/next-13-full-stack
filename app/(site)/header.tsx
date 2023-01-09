@@ -2,6 +2,7 @@
 
 import React from 'react'
 
+import { HeaderLink } from '@components/HeaderLink'
 import { Avatar, DarkThemeToggle, Dropdown, Flowbite, Navbar } from 'flowbite-react'
 import { signIn, signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -16,7 +17,7 @@ const Header = () => {
     <Flowbite>
       <Navbar fluid={true}>
         <Link href="/">
-          <Navbar.Brand href="">
+          <div className="flex items-center">
             <Image
               src="https://flowbite.com/docs/images/logo.svg"
               className="mr-3 h-6 sm:h-9"
@@ -25,7 +26,7 @@ const Header = () => {
               alt="Flowbite Logo"
             />
             <span className="self-center whitespace-nowrap text-xl  font-semibold dark:text-white">Movies</span>
-          </Navbar.Brand>
+          </div>
         </Link>
         <div className="flex md:order-2">
           <DarkThemeToggle className="mr-3" />
@@ -52,7 +53,6 @@ const Header = () => {
                 <Dropdown.Divider />
                 <Dropdown.Item onClick={() => signOut({ callbackUrl: pathname || '/' })}>Sign out</Dropdown.Item>
               </Dropdown>
-              <Navbar.Toggle />
             </>
           ) : (
             <button
@@ -63,28 +63,21 @@ const Header = () => {
               Sign In
             </button>
           )}
+          <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
-          <Link href="/">
-            <Navbar.Link href="" active={pathname === '/'}>
-              Home
-            </Navbar.Link>
-          </Link>
-          <Link href="/movies">
-            <Navbar.Link href="" active={pathname?.startsWith('/movies')}>
-              Movies
-            </Navbar.Link>
-          </Link>
-          <Link href="/users">
-            <Navbar.Link href="" active={pathname?.startsWith('/users')}>
-              Users
-            </Navbar.Link>
-          </Link>
-          <Link href="/navbars">
-            <Navbar.Link href="" active={pathname?.startsWith('/contact')}>
-              Contact
-            </Navbar.Link>
-          </Link>
+          <HeaderLink href="/" active={pathname === '/'}>
+            Home
+          </HeaderLink>
+          <HeaderLink href="/movies" active={pathname?.startsWith('/movies')}>
+            Movies
+          </HeaderLink>
+          <HeaderLink href="/users" active={pathname?.startsWith('/users')}>
+            Users
+          </HeaderLink>
+          <HeaderLink href="/navbars" active={pathname?.startsWith('/contact')}>
+            Contact
+          </HeaderLink>
         </Navbar.Collapse>
       </Navbar>
     </Flowbite>
