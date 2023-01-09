@@ -32,7 +32,7 @@ const SignInPage = () => {
   }
 
   return (
-    <div className="w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 md:min-w-[400px]">
+    <div className="m-auto mt-40 w-full max-w-sm p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 md:min-w-[400px] relative">
       <div className="space-y-6">
         <h4 className="text-3xl font-medium text-gray-900 dark:text-white">Login to our platform</h4>
         <div>
@@ -78,7 +78,7 @@ const SignInPage = () => {
           </button>
           <div className="inline-flex items-center justify-center w-full">
             <hr className="w-64 h-px my-6 bg-gray-200 border-0 dark:bg-gray-700" />
-            <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900">
+            <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-800">
               or
             </span>
           </div>
