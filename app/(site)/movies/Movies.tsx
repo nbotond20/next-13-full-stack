@@ -91,7 +91,7 @@ export const Movies = ({
           ))}
       </div>
 
-      <div className="flex flex-col items-center pb-5">
+      <div className="flex flex-col items-center pb-5 mt-2">
         <span className="text-sm text-gray-700 dark:text-gray-400">
           Showing{' '}
           <span className="font-semibold text-gray-900 dark:text-white">

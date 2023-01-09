@@ -40,6 +40,7 @@ const Header = () => {
                     alt="User settings"
                     img={session.user?.image || 'https://flowbite.com/docs/images/people/profile-picture-5.jpg'}
                     rounded={true}
+                    className="mr-3"
                   />
                 }
               >
