@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { getUserById } from '@db/users'
+import { Auth } from 'components/auth/Auth'
 
 import User from './user'
 
@@ -16,7 +17,11 @@ async function getUser(userId: string) {
 const Page = async ({ params }: { params: { userId: string } }) => {
   const user = await getUser(params.userId)
 
-  return <User user={user} />
+  return (
+    <Auth>
+      <User user={user} />
+    </Auth>
+  )
 }
 
 export default Page
