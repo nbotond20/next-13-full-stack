@@ -63,24 +63,26 @@ export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
   })
 
   return (
-    <>
+    <div className={'grid grid-rows-3 grid-flow-col gap-4 pt-10'}>
       <Image
-        className={'rounded-lg'}
+        className={'rounded-lg row-span-3 md:col-span-3 self-center justify-self-center'}
         src={`${imgURL}/${movieDetailsData.poster_path}`}
         alt={''}
         width={500}
         height={500}
       ></Image>
-      <h2 className={'text-4xl font-extrabold dark:text-white'}>{movieDetailsData.title}</h2>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-w-2xl">
+      <h2 className={'text-4xl font-extrabold dark:text-white col-span-2 self-center justify-self-center'}>
+        {movieDetailsData.title}
+      </h2>
+      <div className="relative overflow-x-auto shadow-lg sm:rounded-lg max-w-2xl row-span-2 col-span-2 self-center justify-self-center">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <tbody>
-            <tr className="border-b border-gray-200 dark:border-gray-700">
+            {/*<tr className="border-b border-gray-200 dark:border-gray-700">
               <th scope="row" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                 Movie Title:
               </th>
               <td className="px-6 py-4">{movieDetailsData.title}</td>
-            </tr>
+            </tr>*/}
             <tr className="border-b border-gray-200 dark:border-gray-700">
               <th scope="row" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                 Genres:
@@ -121,6 +123,6 @@ export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
           </tbody>
         </table>
       </div>
-    </>
+    </div>
   )
 }
