@@ -2,14 +2,20 @@
 
 import React from 'react'
 
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 const SignInPage = () => {
+  const { data: session } = useSession()
+
   const router = useRouter()
   const searchParams = useSearchParams()
   const callbackUrl = searchParams.get('callbackUrl') || undefined
+
+  if (session?.user) {
+    router.push('/')
+  }
 
   const [values, setValues] = React.useState({
     email: '',

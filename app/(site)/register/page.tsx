@@ -2,10 +2,18 @@
 
 import React from 'react'
 
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const SignInPage = () => {
+  const { data: session } = useSession()
+  const router = useRouter()
+
+  if (session?.user) {
+    router.push('/')
+  }
+
   const [values, setValues] = React.useState({
     name: '',
     email: '',
