@@ -4,12 +4,10 @@ import React from 'react'
 
 import { signIn } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const SignInPage = () => {
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const callbackUrl = searchParams.get('callbackUrl') || undefined
 
   const [values, setValues] = React.useState({
     email: '',
@@ -18,7 +16,6 @@ const SignInPage = () => {
 
   const handleSignIn = async () => {
     const res = await signIn('credentials', {
-      callbackUrl,
       email: values.email,
       password: values.password,
       redirect: false,
@@ -27,7 +24,7 @@ const SignInPage = () => {
     // TODO Handle login errors
 
     if (!res?.error) {
-      router.push(callbackUrl || '/')
+      router.push('/')
     }
   }
 
@@ -83,7 +80,7 @@ const SignInPage = () => {
             </span>
           </div>
           <button
-            onClick={() => signIn('google', { callbackUrl })}
+            onClick={() => signIn('google', { callbackUrl: '/' })}
             type="button"
             className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55"
           >
