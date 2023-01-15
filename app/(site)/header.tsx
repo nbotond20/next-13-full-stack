@@ -73,12 +73,11 @@ const Header = () => {
           <HeaderLink href="/movies" active={pathname?.startsWith('/movies')}>
             Movies
           </HeaderLink>
-          <HeaderLink href="/users" active={pathname?.startsWith('/users')}>
-            Users
-          </HeaderLink>
-          <HeaderLink href="/navbars" active={pathname?.startsWith('/contact')}>
-            Contact
-          </HeaderLink>
+          {session?.user?.role === 'ADMIN' && (
+            <HeaderLink href="/users" active={pathname?.startsWith('/users')}>
+              Users
+            </HeaderLink>
+          )}
         </Navbar.Collapse>
       </Navbar>
     </Flowbite>

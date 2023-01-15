@@ -2,7 +2,7 @@ import React from 'react'
 
 import { getUsers } from '@db/users'
 
-import Users from './users'
+import Users from './Users'
 
 async function getData() {
   const { users } = await getUsers()

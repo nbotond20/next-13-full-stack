@@ -1,3 +1,5 @@
+import { User } from '@prisma/client'
+
 import prisma from './prismadb'
 
 export async function getUsers() {
@@ -37,6 +39,29 @@ export async function createUser(user: { name: string; email: string; passwordHa
       data: user,
     })
     return { user: newUser }
+  } catch (error) {
+    return { error }
+  }
+}
+
+export async function updateUser(user: User) {
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { id: user.id },
+      data: user,
+    })
+    return { user: updatedUser }
+  } catch (error) {
+    return { error }
+  }
+}
+
+export async function deleteUser(id: string) {
+  try {
+    const deletedUser = await prisma.user.delete({
+      where: { id },
+    })
+    return { user: deletedUser }
   } catch (error) {
     return { error }
   }
