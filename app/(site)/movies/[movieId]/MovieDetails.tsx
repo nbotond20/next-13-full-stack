@@ -31,7 +31,7 @@ interface MovieDetailsProps {
 }
 
 export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
-  const [movieDetailsData, setMovieDetailsData] = useState(results)
+  const [movieDetailsData, setMovieDetailsData] = useState(results || {})
 
   useEffect(() => {
     return () => {
@@ -69,9 +69,9 @@ export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
                 Genres:
               </th>
               <td className="px-6 py-4">
-                {movieDetailsData.genres[0].name}
-                {movieDetailsData.genres[1] && ', ' + movieDetailsData.genres[1]?.name}
-                {movieDetailsData.genres[2] && ', ' + movieDetailsData.genres[2]?.name}
+                {movieDetailsData?.genres[0].name}
+                {movieDetailsData?.genres[1] && ', ' + movieDetailsData.genres[1]?.name}
+                {movieDetailsData?.genres[2] && ', ' + movieDetailsData.genres[2]?.name}
               </td>
             </tr>
             <tr className="border-b border-gray-200 dark:border-gray-700">
@@ -85,8 +85,8 @@ export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
                 Production companies:
               </th>
               <td className="px-6 py-4">
-                {movieDetailsData.production_companies[0].name}
-                {movieDetailsData.genres[1] && ', ' + movieDetailsData.production_companies[1]?.name}{' '}
+                {movieDetailsData?.production_companies[0].name}
+                {movieDetailsData?.genres[1] && ', ' + movieDetailsData.production_companies[1]?.name}{' '}
               </td>
             </tr>
             <tr className="border-b border-gray-200 dark:border-gray-700">
