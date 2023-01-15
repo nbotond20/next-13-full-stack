@@ -1,14 +1,22 @@
 'use client'
 
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
+import useDebounceValue from '@hooks/useDebounce'
+import { useMovies } from '@hooks/useMovies'
 import Image from 'next/image'
 import Link from 'next/link'
-import useSWR from 'swr'
+import { useRouter, useSearchParams } from 'next/navigation'
 
-interface Movie {
+import { Pagination } from './Pagination'
+import Loading from './loading'
+
+export interface Movie {
   id: number
   title: string
+  name: string
+  original_name: string
+  original_title: string
   overview: string
   poster_path: string
 }
@@ -22,20 +30,6 @@ interface MoviesProps {
   MOVIES_DB_API_URL: string
   MOVIES_DB_API_KEY: string
 }
-const fetcher = (url: string) => fetch(url).then(res => res.json())
-
-function useMovies(page: number, MOVIES_DB_API_URL: string, MOVIES_DB_API_KEY: string) {
-  const { data, error, isLoading } = useSWR(
-    `${MOVIES_DB_API_URL}/trending/all/week?api_key=${MOVIES_DB_API_KEY}&page=${page}`,
-    fetcher
-  )
-
-  return {
-    movies: data?.results,
-    isLoading,
-    error,
-  } as { movies: Movie[]; isLoading: boolean; error: Error }
-}
 
 export const Movies = ({
   totalResults,
@@ -44,52 +38,126 @@ export const Movies = ({
   MOVIES_DB_API_KEY,
   MOVIES_DB_API_URL,
 }: MoviesProps) => {
-  const [pageNum, setPageNum] = React.useState(1)
-  const { movies } = useMovies(pageNum, MOVIES_DB_API_URL, MOVIES_DB_API_KEY)
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const [pageNum, setPageNum] = useState(Number(searchParams.get('page')) || 1)
+  const { movies, isLoading } = useMovies(
+    `${MOVIES_DB_API_URL}/trending/all/week?api_key=${MOVIES_DB_API_KEY}&page=${pageNum}`
+  )
 
-  const [moviesData, setMoviesData] = React.useState(movies)
+  const [moviesData, setMoviesData] = useState(movies)
 
   const handleNextPage = useCallback(() => {
     if (pageNum < totalResults / elementsPerPage) {
       setPageNum(pageNum + 1)
+      router.push(`/movies?page=${pageNum + 1}`)
     }
-  }, [pageNum, totalResults, elementsPerPage])
+  }, [pageNum, totalResults, elementsPerPage, router])
 
   const handlePrevPage = useCallback(() => {
     if (pageNum > 1) {
       setPageNum(pageNum - 1)
+      router.push(`/movies?page=${pageNum - 1}`)
     }
-  }, [pageNum])
+  }, [pageNum, router])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMoviesData(movies)
   }, [movies])
 
+  const [search, setSearch] = useState(searchParams.get('query') || '')
+  const debouncedSearch = useDebounceValue(search, 500)
+
+  useEffect(() => {
+    if (search === '') {
+      setMoviesData(movies)
+    }
+  }, [search, movies])
+
+  const { movies: moviesByQuery } = useMovies(
+    debouncedSearch ? `${MOVIES_DB_API_URL}/search/movie?api_key=${MOVIES_DB_API_KEY}&query=${debouncedSearch}` : null
+  )
+
+  useEffect(() => {
+    if (moviesByQuery) {
+      setMoviesData(moviesByQuery)
+      router.push(`/movies?query=${debouncedSearch}`)
+    }
+  }, [debouncedSearch, moviesByQuery, router])
+
   return (
     <div>
-      <h1 className="font-bold text-6xl py-5 ml-0 sm:ml-20 lg:ml-10 dark:text-white">Movies</h1>
-      <div className="grid grid-cols-1 sm:px-20 lg:grid-cols-2 3xl:grid-cols-3 lg:px-10 px-0 gap-5 py-5 justify-center items-center">
-        {moviesData &&
-          moviesData?.map((movie: Movie) => (
-            <Link
-              key={movie.id}
-              href={`/movies/${movie.id}`}
-              className="flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+      <div className="md:flex justify-between">
+        <h1 className="font-bold text-6xl py-5 ml-0 sm:ml-20 lg:ml-10 dark:text-white">Movies </h1>
+        <form className="items-center flex mr-0 sm:ml-20 lg:mr-10 md:mr-20 mb-8 md:mb-0">
+          <div className="relative w-full mr-0 sm:mr-20 md:mr-0 md:w-96">
+            <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+              <svg
+                aria-hidden="true"
+                className="w-5 h-5 text-gray-500 dark:text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </div>
+            <input
+              type="search"
+              id="default-search"
+              className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              placeholder="Search Movies"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+            />
+            <button
+              type="submit"
+              className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              <Image
-                className="object-cover w-full rounded-t-lg h-96 lg:h-auto lg:w-48 lg:rounded-none lg:rounded-l-lg"
-                src={`${imgURL}/${movie.poster_path}`}
-                alt=""
-                width={500}
-                height={500}
-              />
-              <div className="flex flex-col justify-between p-4 leading-normal">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{movie.title}</h5>
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{movie.overview}</p>
-              </div>
-            </Link>
-          ))}
+              Search
+            </button>
+          </div>
+        </form>
       </div>
+      <Pagination handleNextPage={handleNextPage} handlePrevPage={handlePrevPage} top />
+      {!isLoading ? (
+        <div className="grid grid-cols-1 sm:px-20 lg:grid-cols-2 3xl:grid-cols-3 lg:px-10 px-0 gap-5 py-5 justify-center items-center">
+          {moviesData &&
+            moviesData?.map((movie: Movie) => (
+              <Link
+                key={movie.id}
+                href={`/movies/${movie.id}`}
+                className="lg:min-h-[290px] flex flex-col items-center bg-white border rounded-lg shadow-md md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+              >
+                <Image
+                  className="object-contain w-full rounded-lg h-96 lg:h-auto lg:w-48 lg:rounded-none lg:rounded-l-lg"
+                  src={movie.poster_path ? `${imgURL}/${movie.poster_path}` : '/image-placeholder.png'}
+                  alt=""
+                  width={500}
+                  height={500}
+                  placeholder="blur"
+                  blurDataURL={'/image-placeholder.png'}
+                />
+                <div className="flex flex-col justify-between p-4 leading-normal lg:max-h-64 ">
+                  <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {movie.title || movie.name || movie.original_title || movie.original_name}
+                  </h5>
+                  <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 lg:overflow-hidden">
+                    {movie.overview}
+                  </p>
+                </div>
+              </Link>
+            ))}
+        </div>
+      ) : (
+        <Loading />
+      )}
 
       <div className="flex flex-col items-center pb-5 mt-2">
         <span className="text-sm text-gray-700 dark:text-gray-400">
@@ -100,46 +168,7 @@ export const Movies = ({
           to <span className="font-semibold text-gray-900 dark:text-white">{pageNum * elementsPerPage}</span> of{' '}
           <span className="font-semibold text-gray-900 dark:text-white">{totalResults}</span> Entries
         </span>
-        <div className="inline-flex mt-2 xs:mt-0">
-          <button
-            onClick={() => handlePrevPage()}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5 mr-2"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-            Prev
-          </button>
-          <button
-            onClick={() => handleNextPage()}
-            className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
-          >
-            Next
-            <svg
-              aria-hidden="true"
-              className="w-5 h-5 ml-2"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              ></path>
-            </svg>
-          </button>
-        </div>
+        <Pagination handleNextPage={handleNextPage} handlePrevPage={handlePrevPage} />
       </div>
     </div>
   )
