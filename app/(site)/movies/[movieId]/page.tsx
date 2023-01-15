@@ -1,17 +1,15 @@
 import React from 'react'
 
-import { MovieDetails, MovieDetailsProps } from '@app/(site)/movies/[movieId]/MovieDetails'
+import { MovieDetails, MovieDetailsProps } from './MovieDetails'
 
 async function getData({ movieId }: { movieId: string }) {
-  const res = await fetch(
-    `${process.env.MOVIES_DB_API_URL!}/movie/${movieId}?api_key=${process.env.MOVIES_DB_API_KEY!}`
-  )
+  const res = await fetch(`${process.env.MOVIES_DB_API_URL!}movie/${movieId}?api_key=${process.env.MOVIES_DB_API_KEY!}`)
 
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }
 
-  return res.json()
+  return await res.json()
 }
 
 const Page = async ({ params }: { params: { movieId: string } }) => {
