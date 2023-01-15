@@ -26,7 +26,7 @@ const fetcher = (url: string) => fetch(url).then(res => res.json())
 
 function useMovies(page: number, MOVIES_DB_API_URL: string, MOVIES_DB_API_KEY: string) {
   const { data, error, isLoading } = useSWR(
-    `${MOVIES_DB_API_URL}/trending/all/week?api_key=${MOVIES_DB_API_KEY}&page=${page}`,
+    `${MOVIES_DB_API_URL}trending/all/week?api_key=${MOVIES_DB_API_KEY}&page=${page}`,
     fetcher
   )
 

@@ -26,8 +26,6 @@ interface MovieDetails {
 export interface MovieDetailsProps {
   results: MovieDetails
   imgURL: string
-  MOVIES_DB_API_URL: string
-  MOVIES_DB_API_KEY: string
 }
 
 const USDollar = new Intl.NumberFormat('en-US', {
