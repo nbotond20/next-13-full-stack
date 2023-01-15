@@ -42,7 +42,7 @@ export const Movies = ({
   const router = useRouter()
   const [pageNum, setPageNum] = useState(Number(searchParams.get('page')) || 1)
   const { movies, isLoading } = useMovies(
-    `${MOVIES_DB_API_URL}/trending/all/week?api_key=${MOVIES_DB_API_KEY}&page=${pageNum}`
+    `${MOVIES_DB_API_URL}trending/all/week?api_key=${MOVIES_DB_API_KEY}&page=${pageNum}`
   )
 
   const [moviesData, setMoviesData] = useState(movies)
@@ -75,7 +75,7 @@ export const Movies = ({
   }, [search, movies])
 
   const { movies: moviesByQuery } = useMovies(
-    debouncedSearch ? `${MOVIES_DB_API_URL}/search/movie?api_key=${MOVIES_DB_API_KEY}&query=${debouncedSearch}` : null
+    debouncedSearch ? `${MOVIES_DB_API_URL}search/movie?api_key=${MOVIES_DB_API_KEY}&query=${debouncedSearch}` : null
   )
 
   useEffect(() => {

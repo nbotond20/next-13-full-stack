@@ -4,7 +4,7 @@ import { Movies } from './Movies'
 
 const getData = async (pageNumber: number) => {
   const { results, total_results, page } = await fetch(
-    `${process.env.MOVIES_DB_API_URL}/trending/all/week?api_key=${process.env.MOVIES_DB_API_KEY}&page=${pageNumber}`,
+    `${process.env.MOVIES_DB_API_URL}trending/all/week?api_key=${process.env.MOVIES_DB_API_KEY}&page=${pageNumber}`,
     { next: { revalidate: 10 } }
   ).then(res => res.json())
 
