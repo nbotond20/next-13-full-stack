@@ -1,9 +1,14 @@
+'use client'
+
 import React from 'react'
 
 import { HomePageSvg } from '@components/HomePageSvg'
+import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 
 const Home = () => {
+  const { data: session } = useSession()
+
   return (
     <div className="w-full h-full flex justify-center items-center">
       <section className="bg-white dark:bg-gray-900">
@@ -34,12 +39,14 @@ const Home = () => {
                 ></path>
               </svg>
             </Link>
-            <Link
-              href="/login"
-              className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
-            >
-              Login to your account
-            </Link>
+            {!session?.user && (
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 dark:focus:ring-gray-800"
+              >
+                Login to your account
+              </Link>
+            )}
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
             <HomePageSvg />
