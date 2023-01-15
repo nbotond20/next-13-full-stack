@@ -2,10 +2,18 @@
 
 import React from 'react'
 
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 const SignInPage = () => {
+  const { data: session } = useSession()
+  const router = useRouter()
+
+  if (session?.user) {
+    router.push('/')
+  }
+
   const [values, setValues] = React.useState({
     name: '',
     email: '',
@@ -31,7 +39,7 @@ const SignInPage = () => {
   }
 
   return (
-    <div className="overflow-auto m-auto mt-5 mb-5 sm:mt-14 lg:mt-32 w-full max-w-sm p-4 bg-white sm:border sm:border-gray-200 sm:rounded-lg sm:shadow-md sm:p-6 md:p-8 dark:bg-gray-800 dark:border-gray-700 md:min-w-[400px] relative">
+    <div className="overflow-auto m-auto mt-5 mb-5 sm:mt-14 lg:mt-32 w-full max-w-sm p-4 bg-white sm:border sm:border-gray-200 sm:rounded-lg sm:shadow-md sm:p-6 md:p-8 dark:bg-gray-900 dark:sm:bg-gray-800 dark:border-gray-700 md:min-w-[400px] relative">
       <div className="space-y-6 ">
         <h4 className="text-3xl font-medium text-gray-900 dark:text-white">Register an account</h4>
         <div>
@@ -93,7 +101,7 @@ const SignInPage = () => {
           </button>
           <div className="inline-flex items-center justify-center w-full">
             <hr className="w-64 h-px my-6 bg-gray-200 border-0 dark:bg-gray-700" />
-            <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-800">
+            <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900 dark:sm:bg-gray-800">
               or
             </span>
           </div>

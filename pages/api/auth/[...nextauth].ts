@@ -47,8 +47,21 @@ export default NextAuth({
     strategy: 'jwt',
     maxAge: 1 * 60 * 60, // 1 hour
   },
-  // Use this instead of default login/logout pages
   pages: {
     signIn: '/login',
+  },
+  callbacks: {
+    jwt({ token, user }) {
+      if (user) {
+        token.role = user.role
+      }
+      return token
+    },
+    session({ session, token }) {
+      if (session.user) {
+        session.user.role = token.role
+      }
+      return session
+    },
   },
 })
