@@ -24,14 +24,14 @@ interface MovieDetails {
 }
 
 interface MovieDetailsProps {
-  results: MovieDetails
+  results: MovieDetails | undefined
   imgURL: string
   MOVIES_DB_API_URL: string
   MOVIES_DB_API_KEY: string
 }
 
 export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
-  const [movieDetailsData, setMovieDetailsData] = useState(results || {})
+  const [movieDetailsData, setMovieDetailsData] = useState<MovieDetails | undefined>(results)
 
   useEffect(() => {
     return () => {
@@ -49,12 +49,12 @@ export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
     <>
       <Image
         className={'rounded-lg'}
-        src={`${imgURL}/${movieDetailsData.poster_path}`}
+        src={`${imgURL}/${movieDetailsData?.poster_path}`}
         alt={''}
         width={500}
         height={500}
       ></Image>
-      <h2 className={'text-4xl font-extrabold dark:text-white'}>{movieDetailsData.title}</h2>
+      <h2 className={'text-4xl font-extrabold dark:text-white'}>{movieDetailsData?.title}</h2>
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg max-w-2xl">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <tbody>
@@ -62,7 +62,7 @@ export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
               <th scope="row" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                 Movie Title:
               </th>
-              <td className="px-6 py-4">{movieDetailsData.title}</td>
+              <td className="px-6 py-4">{movieDetailsData?.title}</td>
             </tr>
             <tr className="border-b border-gray-200 dark:border-gray-700">
               <th scope="row" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
@@ -78,7 +78,7 @@ export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
               <th scope="row" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                 Overview
               </th>
-              <td className="px-6 py-4">{movieDetailsData.overview}</td>
+              <td className="px-6 py-4">{movieDetailsData?.overview}</td>
             </tr>
             <tr className="border-b border-gray-200 dark:border-gray-700">
               <th scope="row" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
@@ -93,13 +93,13 @@ export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
               <th scope="row" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                 Release Date:
               </th>
-              <td className="px-6 py-4">{movieDetailsData.release_date}</td>
+              <td className="px-6 py-4">{movieDetailsData?.release_date}</td>
             </tr>
             <tr className="border-b border-gray-200 dark:border-gray-700">
               <th scope="row" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                 Revenue:
               </th>
-              <td className="px-6 py-4">{USDollar.format(movieDetailsData.revenue)}</td>
+              <td className="px-6 py-4">{USDollar.format(movieDetailsData?.revenue || 0)}</td>
             </tr>
           </tbody>
         </table>
