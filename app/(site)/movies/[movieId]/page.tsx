@@ -5,7 +5,7 @@ import { MovieDetails } from '@app/(site)/movies/[movieId]/MovieDetails'
 async function getData({ movieId }: { movieId: string }) {
   const res = await fetch(`${process.env.MOVIES_DB_API_URL}/movie/${movieId}?api_key=${process.env.MOVIES_DB_API_KEY}`)
 
-  return res.json()
+  return await res.json()
 }
 export default async function Page({ params }: { params: { movieId: string } }) {
   const imgURL = process.env.MOVIES_DB_API_IMAGE_URL!
