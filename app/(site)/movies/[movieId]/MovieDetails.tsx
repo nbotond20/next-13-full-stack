@@ -4,8 +4,6 @@ import React, { useEffect, useState } from 'react'
 
 import Image from 'next/image'
 
-//import useSWR from 'swr'
-
 interface MovieDetails {
   id: number
   title: string
@@ -25,27 +23,18 @@ interface MovieDetails {
   backdrop_path: string | null
 }
 
-interface MovieDetailsProps {
+export interface MovieDetailsProps {
   results: MovieDetails
   imgURL: string
   MOVIES_DB_API_URL: string
   MOVIES_DB_API_KEY: string
 }
 
-/*const fetcher = (url: string) => fetch(url).then(res => res.json())
-
-function useMovieDetails(movieId: string, MOVIES_DB_API_URL: string, MOVIES_DB_API_KEY: string) {
-  const { data, error, isLoading } = useSWR(
-    `${MOVIES_DB_API_URL}/movie/${movieId}?api_key=${MOVIES_DB_API_KEY}`,
-    fetcher
-  )
-
-  return {
-    details: data?.results,
-    isLoading,
-    error,
-  } as { details: MovieDetails; isLoading: boolean; error: Error }
-}*/
+const USDollar = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  maximumSignificantDigits: 3,
+})
 
 export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
   const [movieDetailsData, setMovieDetailsData] = useState(results)
@@ -55,12 +44,6 @@ export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
       setMovieDetailsData(results)
     }
   }, [results])
-
-  const USDollar = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumSignificantDigits: 3,
-  })
 
   return (
     <div className={'grid grid-rows-3 grid-flow-col gap-4 pt-10'}>
@@ -77,20 +60,14 @@ export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
       <div className="relative overflow-x-auto shadow-lg sm:rounded-lg max-w-2xl row-span-2 col-span-2 self-center justify-self-center">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <tbody>
-            {/*<tr className="border-b border-gray-200 dark:border-gray-700">
-              <th scope="row" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
-                Movie Title:
-              </th>
-              <td className="px-6 py-4">{movieDetailsData.title}</td>
-            </tr>*/}
             <tr className="border-b border-gray-200 dark:border-gray-700">
               <th scope="row" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
                 Genres:
               </th>
               <td className="px-6 py-4">
-                {movieDetailsData.genres[0].name}
-                {movieDetailsData.genres[1] && ', ' + movieDetailsData.genres[1]?.name}
-                {movieDetailsData.genres[2] && ', ' + movieDetailsData.genres[2]?.name}
+                {movieDetailsData.genres.map(
+                  (genre, index) => genre.name + (index !== movieDetailsData.genres.length - 1 ? ', ' : '')
+                )}
               </td>
             </tr>
             <tr className="border-b border-gray-200 dark:border-gray-700">
@@ -104,8 +81,10 @@ export const MovieDetails = ({ results, imgURL }: MovieDetailsProps) => {
                 Production companies:
               </th>
               <td className="px-6 py-4">
-                {movieDetailsData.production_companies[0].name}
-                {movieDetailsData.genres[1] && ', ' + movieDetailsData.production_companies[1]?.name}
+                {movieDetailsData.production_companies.map(
+                  (genre, index) =>
+                    genre.name + (index !== movieDetailsData.production_companies.length - 1 ? ', ' : '')
+                )}
               </td>
             </tr>
             <tr className="border-b border-gray-200 dark:border-gray-700">
