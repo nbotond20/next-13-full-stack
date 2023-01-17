@@ -1,10 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useCallback } from 'react'
 
 import { useMovie } from '@hooks/useMovie'
 import Rating from '@mui/material/Rating'
-import { useSession } from 'next-auth/react'
+import { Rating as PrismaRating } from '@prisma/client'
+import { User } from 'next-auth'
 import Image from 'next/image'
 
 import { Comment, IComment } from './Comment'
@@ -34,6 +35,8 @@ interface MovieDetailsProps {
   MOVIES_DB_API_URL: string
   MOVIES_DB_API_KEY: string
   comments: IComment[]
+  ratings: PrismaRating[]
+  user?: User
 }
 
 const USDollar = new Intl.NumberFormat('en-US', {
@@ -54,22 +57,33 @@ export const MovieDetails = ({
   MOVIES_DB_API_URL,
   MOVIES_DB_API_KEY,
   comments,
+  ratings,
+  user,
 }: MovieDetailsProps) => {
   const { movie } = useMovie(movieId ? `${MOVIES_DB_API_URL}movie/${movieId}?api_key=${MOVIES_DB_API_KEY}` : null)
-  const [voteValue, setVoteValue] = React.useState<number | null>(2)
-  const { data: session, status } = useSession()
 
   const [comment, setComment] = React.useState('')
-
   const [commentsToDisplay, setCommentsToDisplay] = React.useState<IComment[]>(sortCommentsByDate(comments) || [])
 
-  if (!movie || status === 'loading') {
-    return <div>Loading...</div>
-  }
+  const [rating, setRating] = React.useState<number | null>(null)
+  const [ratingsToDisplay, setRatingsToDisplay] = React.useState<PrismaRating[]>(ratings || [])
+  const [userRating, setUserRating] = React.useState<PrismaRating | undefined>(
+    ratingsToDisplay.find(r => r.userId === user?.id)
+  )
+  const [voteValue, setVoteValue] = React.useState<number | null>(userRating ? userRating.rating : null)
+
+  React.useEffect(() => {
+    if (ratingsToDisplay.length > 0) {
+      const total = ratingsToDisplay.reduce((acc, curr) => {
+        return acc + curr.rating
+      }, 0)
+      setRating(total / ratingsToDisplay.length)
+    }
+  }, [ratingsToDisplay])
 
   const handleNewComment = async (parentId?: string, reply?: string) => {
     if (comment === '' && reply === '') return
-    if (!session?.user) return
+    if (!user) return
 
     const res = await fetch(`/api/comments`, {
       method: 'POST',
@@ -79,9 +93,9 @@ export const MovieDetails = ({
       body: JSON.stringify({
         movieId,
         text: reply || comment,
-        userId: session.user.id,
-        avatar: session.user.image,
-        name: session.user.name,
+        userId: user.id,
+        avatar: user.image,
+        name: user.name,
         parentId: parentId || null,
         date: Date.now(),
         voteCount: 0,
@@ -94,6 +108,35 @@ export const MovieDetails = ({
       setCommentsToDisplay([newComment.newComment, ...commentsToDisplay])
       setComment('')
     }
+  }
+
+  const handleNewRating = useCallback(
+    async (newValue: number | null) => {
+      if (!user || !newValue) return
+
+      const res = await fetch(`/api/ratings`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          movieId,
+          rating: newValue,
+          userId: user.id,
+        }),
+      })
+
+      if (res.status === 201) {
+        const { newRating } = await res.json()
+        setRatingsToDisplay([newRating.rating, ...ratingsToDisplay])
+        setUserRating(newRating.rating)
+      }
+    },
+    [movieId, ratingsToDisplay, user]
+  )
+
+  if (!movie || status === 'loading') {
+    return <div>Loading...</div>
   }
 
   return (
@@ -115,9 +158,12 @@ export const MovieDetails = ({
               <tr className="border-b border-gray-200 dark:border-gray-700">
                 <th scope="row" className="px-6 py-3">
                   <Rating
+                    readOnly={userRating ? true : false}
+                    precision={0.5}
                     name="simple-controlled"
                     value={voteValue}
                     onChange={(_, newValue) => {
+                      handleNewRating(newValue)
                       setVoteValue(newValue)
                     }}
                   />
@@ -134,9 +180,11 @@ export const MovieDetails = ({
                       <title>Rating star</title>
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                     </svg>
-                    <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">4.95</p>
+                    <p className="ml-2 text-sm font-bold text-gray-900 dark:text-white">{rating || 0}</p>
                     <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400"></span>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">73 reviews</span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">
+                      {ratingsToDisplay.length} reviews
+                    </span>
                   </div>
                 </th>
               </tr>
@@ -194,7 +242,7 @@ export const MovieDetails = ({
               Discussion ({commentsToDisplay?.length || 0})
             </h2>
           </div>
-          {session?.user && (
+          {user && (
             <div className="mb-6">
               <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                 <textarea
@@ -225,10 +273,10 @@ export const MovieDetails = ({
                     newSection={idx !== 0}
                     comment={comment}
                     handleNewComment={handleNewComment}
-                    user={session?.user}
+                    user={user}
                   />
                   {children.map(child => (
-                    <Comment comment={child} key={child.id} user={session?.user} />
+                    <Comment comment={child} key={child.id} user={user} />
                   ))}
                 </React.Fragment>
               )
