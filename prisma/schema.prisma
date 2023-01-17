@@ -50,9 +50,6 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Movie         Movie[]
-  Rating        Rating[]
-  Comment       Comment[]
-  Like          Like[]
   role          Role      @default(USER)
 }
 
@@ -65,42 +62,33 @@ model VerificationToken {
 }
 
 model Movie {
-  id        String    @id @default(cuid())
+  id        String   @id @default(cuid())
   title     String
   date      DateTime
   overview  String
   imgPath   String
   rating    Float
   voteCount Int
-  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  Rating    Rating[]
-  Comment   Comment[]
 }
 
 model Rating {
   id      String @id @default(cuid())
   rating  Float
-  movie   Movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
   movieId String
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId  String
 }
 
 model Comment {
-  id      String @id @default(cuid())
-  text    String
-  movie   Movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  movieId String
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String
-  Like    Like[]
-}
-
-model Like {
-  id        String  @id @default(cuid())
-  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  text      String
+  movieId   String
   userId    String
-  comment   Comment @relation(fields: [commentId], references: [id], onDelete: Cascade)
-  commentId String
+  date      DateTime
+  parentId  String?
+  avatar    String
+  name      String
+  voteCount Int
+  likedBy   String[]
 }
