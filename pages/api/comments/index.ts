@@ -5,7 +5,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
   if (req.method === 'GET') {
     const { userId, movieId } = req.query as { userId: string; movieId: string }
     if (!userId || !movieId) return res.status(400).json({ message: 'User and movie are required.' })
-    const { comments } = await getComments({ userId, movieId })
+    const { comments } = await getComments({ movieId })
     if (!comments) return res.status(404).json({ message: 'Comments not found.' })
     return res.status(200).json({ comments })
   }
@@ -41,7 +41,7 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
       likedBy,
     })
 
-    if (!newComment) return res.status(400).json({ message: 'Comment could not be created.' })
+    if (!newComment || newComment.error) return res.status(400).json({ message: 'Comment could not be created.' })
 
     return res.status(201).json({ newComment })
   }

@@ -90,5 +90,5 @@ model Comment {
   avatar    String
   name      String
   voteCount Int
-  likedBy   String[]
+  likedBy   String[] // This is a list of user ids + their vote in string form i.e. "userId:vote"
 }
