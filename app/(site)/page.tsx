@@ -52,7 +52,7 @@ const Home = () => {
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
             <HomePageSvg />
           </div>
-          <div className="mr-auto place-self-center pt-10 lg:col-span-7 lg:flex">
+          <div className="mr-auto place-self-center pt-10 lg:col-span-12 lg:flex">
             <RecentComments />
           </div>
         </div>

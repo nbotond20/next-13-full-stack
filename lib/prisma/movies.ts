@@ -81,6 +81,17 @@ export async function getCommentsForMovie(movieId: string) {
   }
 }
 
+export async function getCommentById(id: string) {
+  try {
+    const comment = await prisma.comment.findUnique({
+      where: { id },
+    })
+    return { comment }
+  } catch (error) {
+    return { error }
+  }
+}
+
 export async function createComment(comment: { text: string; movieId: string; userId: string }) {
   try {
     const newComment = await prisma.comment.create({

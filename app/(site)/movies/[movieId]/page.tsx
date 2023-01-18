@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: { movieId: string } }) 
         MOVIES_DB_API_URL={MOVIES_DB_API_URL}
         MOVIES_DB_API_KEY={MOVIES_DB_API_KEY}
       />
-      <CommentSection comments={comments}></CommentSection>
+      <CommentSection commentsProp={comments} movieid={params.movieId}></CommentSection>
     </>
   )
 }

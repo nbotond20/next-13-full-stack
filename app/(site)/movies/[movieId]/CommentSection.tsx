@@ -1,11 +1,11 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { User } from '@prisma/client'
+import { Dropdown } from 'flowbite-react'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
-
-//export interface CommentSection {}
 
 export interface Comment {
   id: string
@@ -13,16 +13,101 @@ export interface Comment {
   userId: string
   text: string
   movieId: string
-  createdAt: Date
+  createdAt: Date | number
 }
 
 interface CommentSectionProps {
-  comments: Comment[]
+  commentsProp: Comment[]
+  movieid: string
 }
 
-export const CommentSection = ({ comments }: CommentSectionProps) => {
+export const CommentSection = ({ commentsProp, movieid }: CommentSectionProps) => {
+  //const [isModalOpen, setIsModalOpen] = useState(false)
+  const [comments, setComments] = useState<Comment[]>(commentsProp)
+  //const [editComment, setEditComment] = useState<Comment>()
+  const [newCommentValues, setNewCommentValues] = useState({ text: '', userId: '', movieId: '' })
+  const [authUserId, setAuthUserId] = useState<string>('00000000')
+  const { data: session } = useSession()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!(typeof session?.user?.email == 'undefined')) {
+        const response = await fetch(`/api/users/emailToId/${session?.user?.email}`)
+        const retrievedUserId = await response.json()
+        setAuthUserId(retrievedUserId.user?.id)
+      }
+    }
+
+    fetchData().then()
+  }, [session])
+
   if (!comments) {
     return <div>Loading...</div>
+  }
+
+  const handleCommentPost = async () => {
+    const res = await fetch('/api/comments', {
+      method: 'POST',
+      body: JSON.stringify(newCommentValues),
+      headers: { 'Content-Type': 'application/json' },
+    })
+
+    if (res.ok) {
+      const { comment: newC } = await res.json()
+      comments.push(newC)
+      setComments(comments)
+    }
+  }
+
+  const handleDeleteComment = async (commentId?: string) => {
+    if (!commentId) return
+    const res = await fetch(`/api/comments/${commentId}`, {
+      method: 'DELETE',
+    })
+
+    if (res.status === 200) {
+      const indToDelete = comments.findIndex(comment => comment.id === commentId)
+      if (indToDelete > -1) {
+        const delComments = comments.filter(comment => comment.id !== commentId)
+        setComments(delComments)
+      }
+      //setIsModalOpen(false)
+      //setComments(comments)
+    }
+  }
+
+  const handleEditComment = async (commentId: string) => {
+    commentId.length
+    return true
+  }
+
+  /*const handleSaveComment = async (commentId?: string) => {
+    if (!commentId) return
+    const res = await fetch(`/api/comments/${commentId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(editComment),
+    })
+
+    if (res.status === 200) {
+      const indToEdit = comments.findIndex(comment => comment.id === commentId)
+      if (indToEdit > -1) {
+        const delComments = comments.filter(comment => comment.id !== commentId)
+        setComments(delComments)
+      }
+      setIsModalOpen(false)
+      //setComments(comments)
+    }
+  }*/
+
+  const handleTextChange = (e: { target: { value: string } }) => {
+    setNewCommentValues({ text: e.target.value, movieId: movieid, userId: authUserId })
+  }
+
+  const disableOnSubmit = (event: { preventDefault: () => void }) => {
+    event.preventDefault()
   }
 
   return (
@@ -33,7 +118,7 @@ export const CommentSection = ({ comments }: CommentSectionProps) => {
             Discussion ({comments.length})
           </h2>{' '}
         </div>
-        <form className="mb-6">
+        <form className="mb-6" onSubmit={disableOnSubmit}>
           {' '}
           {/* Write a comment */}
           <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
@@ -45,12 +130,13 @@ export const CommentSection = ({ comments }: CommentSectionProps) => {
               rows={6}
               className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
               placeholder="Write a comment..."
+              onChange={handleTextChange}
               required
             ></textarea>
           </div>
           <button
-            type="submit"
             className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
+            onClick={handleCommentPost}
           >
             Post comment
           </button>
@@ -64,14 +150,16 @@ export const CommentSection = ({ comments }: CommentSectionProps) => {
                 <div className="flex items-center">
                   <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
                     {/*FIXME: Google Profile images only work sometiemes */}
-                    {comment.user.image && (
+                    {comment.user?.image && (
                       <Image
                         className="mr-2 w-6 h-6 rounded-full"
-                        src={`${comment.user.image}`}
-                        alt={`${comment.user.name}`}
+                        src={`${comment.user?.image}`}
+                        alt={`${comment.user?.name}`}
+                        width={500}
+                        height={500}
                       ></Image>
                     )}
-                    {comment.user.name}
+                    {comment.user?.name}
                   </p>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
                     <time dateTime="2022-02-08" title="February 8th, 2022">
@@ -79,58 +167,15 @@ export const CommentSection = ({ comments }: CommentSectionProps) => {
                     </time>
                   </p>
                 </div>
-                <button
-                  id="dropdownComment1Button"
-                  data-dropdown-toggle="dropdownComment1"
-                  className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                  type="button"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    aria-hidden="true"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
-                  </svg>
-                  <span className="sr-only">Comment settings</span>
-                </button>
                 {/* Dropdown Menu */}
-                <div
-                  id="dropdownComment1"
-                  className="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
-                >
-                  <ul
-                    className="py-1 text-sm text-gray-700 dark:text-gray-200"
-                    aria-labelledby="dropdownMenuIconHorizontalButton"
-                  >
-                    <li>
-                      <a
-                        href="#"
-                        className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Edit
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Remove
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                      >
-                        Report
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+                {session?.user?.name === comment.user?.name && (
+                  <Dropdown dismissOnClick={false} pill={true} label={''} color={''}>
+                    <Dropdown.Item onClick={() => handleEditComment(comment.id)} aria-disabled={true}>
+                      Edit
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={() => handleDeleteComment(comment.id)}>Remove</Dropdown.Item>
+                  </Dropdown>
+                )}
               </footer>
               <p className="text-gray-500 dark:text-gray-400">{comment.text}</p>
             </article>

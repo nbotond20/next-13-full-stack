@@ -3,10 +3,6 @@ import React, { useEffect, useState } from 'react'
 import { Comment } from '@app/(site)/movies/[movieId]/CommentSection'
 import Image from 'next/image'
 
-/*interface RecentCommentProps {
-  comments: Comment[]
-}*/
-
 export const RecentComments = () => {
   const [comments, setComments] = useState<Comment[]>([])
   useEffect(() => {
