@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 //export interface CommentSection {}
 
-interface Comment {
+export interface Comment {
   id: string
   user: User
   userId: string

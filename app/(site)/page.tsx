@@ -3,6 +3,7 @@
 import React from 'react'
 
 import { HomePageSvg } from '@components/HomePageSvg'
+import { RecentComments } from '@components/RecentComments'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 
@@ -50,6 +51,9 @@ const Home = () => {
           </div>
           <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
             <HomePageSvg />
+          </div>
+          <div className="mr-auto place-self-center pt-10 lg:col-span-7 lg:flex">
+            <RecentComments />
           </div>
         </div>
       </section>

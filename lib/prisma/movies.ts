@@ -56,6 +56,20 @@ export async function deleteRating(id: string) {
   }
 }
 
+export async function getMostRecentComments() {
+  try {
+    const comments = await prisma.comment.findMany({
+      take: 5,
+      include: {
+        user: true,
+      },
+    })
+    return { comments }
+  } catch (error) {
+    return { error }
+  }
+}
+
 export async function getCommentsForMovie(movieId: string) {
   try {
     const comments = await prisma.comment.findMany({
