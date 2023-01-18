@@ -11,6 +11,7 @@ export interface IComment {
   avatar: string
   text: string
   parentId: string | null
+  userId: string
   voteCount: number
   likedBy: string[]
 }
@@ -69,6 +70,7 @@ export const Comment = ({ root, newSection, comment, handleNewComment, user }: C
 
   const handleVote = useCallback(
     (vote: number) => {
+      if (!user) return
       if (voteValue === vote) {
         setVoteValue(null)
         handleCommentVote(0)
@@ -87,7 +89,7 @@ export const Comment = ({ root, newSection, comment, handleNewComment, user }: C
         handleCommentVote(vote)
       }
     },
-    [handleCommentVote, voteValue]
+    [handleCommentVote, user, voteValue]
   )
 
   const handleReply = useCallback(() => {
@@ -97,6 +99,9 @@ export const Comment = ({ root, newSection, comment, handleNewComment, user }: C
     }
     setReplying(!replying)
   }, [comment.id, handleNewComment, reply, replying])
+
+  const [showEditMenu, setShowEditMenu] = React.useState(false)
+  const ownComment = useMemo(() => comment.userId === user?.id, [comment, user])
 
   return (
     <article
@@ -125,7 +130,7 @@ export const Comment = ({ root, newSection, comment, handleNewComment, user }: C
           -
         </button>
       </div>
-      <footer className="flex justify-between items-center mb-2">
+      <footer className="flex justify-between items-center mb-2 relative">
         <div className="flex items-center">
           <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
             <Image className="mr-2 rounded-full" src={comment.avatar} alt="" width={24} height={24} />
@@ -133,23 +138,28 @@ export const Comment = ({ root, newSection, comment, handleNewComment, user }: C
           </p>
           <p className="text-sm text-gray-600 dark:text-gray-400">{formatDate(new Date(comment.date))}</p>
         </div>
-        <button
-          id="dropdownComment1Button"
-          data-dropdown-toggle="dropdownComment1"
-          className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          type="button"
-        >
-          <svg
-            className="w-5 h-5"
-            aria-hidden="true"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
+        {ownComment && (
+          <button
+            onClick={() => setShowEditMenu(prev => !prev)}
+            className="inline-flex items-center p-2 text-sm font-medium text-center text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+            type="button"
           >
-            <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
-          </svg>
-        </button>
-        <div className="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+            <svg
+              className="w-5 h-5"
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"></path>
+            </svg>
+          </button>
+        )}
+        <div
+          className={`${
+            !showEditMenu ? 'hidden' : ''
+          } absolute top-10 right-0 z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600`}
+        >
           <ul
             className="py-1 text-sm text-gray-700 dark:text-gray-200"
             aria-labelledby="dropdownMenuIconHorizontalButton"
