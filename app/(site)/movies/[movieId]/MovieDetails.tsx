@@ -163,6 +163,29 @@ export const MovieDetails = ({
     [user]
   )
 
+  const handleEditComment = useCallback(
+    async (commentId: string, text: string) => {
+      if (!user) return
+
+      const res = await fetch(`/api/comments`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          commentId,
+          text,
+        }),
+      })
+
+      if (res.status === 200) {
+        const { updatedComment } = await res.json()
+        setCommentsToDisplay(prev => prev.map(c => (c.id === updatedComment.id ? updatedComment : c)))
+      }
+    },
+    [user]
+  )
+
   if (!movie || status === 'loading') {
     return <div>Loading...</div>
   }
@@ -303,9 +326,16 @@ export const MovieDetails = ({
                     handleNewComment={handleNewComment}
                     user={user}
                     handleDeleteComment={handleDeleteComment}
+                    handleEditComment={handleEditComment}
                   />
                   {children.map(child => (
-                    <Comment comment={child} key={child.id} user={user} handleDeleteComment={handleDeleteComment} />
+                    <Comment
+                      comment={child}
+                      key={child.id}
+                      user={user}
+                      handleDeleteComment={handleDeleteComment}
+                      handleEditComment={handleEditComment}
+                    />
                   ))}
                 </React.Fragment>
               )

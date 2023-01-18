@@ -109,3 +109,20 @@ export async function deleteComment({ commentId }: { commentId: string }) {
     return { error }
   }
 }
+
+export async function updateComment({ commentId, text }: { commentId: string; text: string }) {
+  try {
+    const updatedComment = await prisma.comment.update({
+      where: { id: commentId },
+      data: { text },
+    })
+
+    if (!updatedComment) {
+      return { error: 'Comment not updated' }
+    }
+
+    return { updatedComment }
+  } catch (error) {
+    return { error }
+  }
+}

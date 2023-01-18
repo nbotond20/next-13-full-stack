@@ -4,6 +4,7 @@ import {
   getCommentById,
   getCommentsByMovieId,
   getCommentsByParentId,
+  updateComment,
 } from '@lib/prisma/comments'
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 
@@ -77,7 +78,23 @@ const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     return res.status(200).json({ deletedComments, parentId: commentId })
   }
 
-  res.setHeader('Allow', ['GET', 'POST', 'DELETE'])
+  if (req.method === 'PUT') {
+    const { commentId, text } = req.body as { commentId: string; text: string }
+    if (!commentId || !text) {
+      return res.status(400).json({ message: 'Comment ID and text are required.' })
+    }
+
+    const { comment } = await getCommentById({ commentId })
+    if (!comment) return res.status(404).json({ message: 'Comment not found.' })
+
+    const { updatedComment } = await updateComment({ commentId, text })
+
+    if (!updatedComment) return res.status(400).json({ message: 'Comment could not be updated.' })
+
+    return res.status(200).json({ updatedComment })
+  }
+
+  res.setHeader('Allow', ['GET', 'POST', 'DELETE', 'PUT'])
   res.status(425).end(`Method ${req.method} is not allowed.`)
 }
 

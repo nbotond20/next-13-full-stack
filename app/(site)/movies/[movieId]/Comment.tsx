@@ -23,9 +23,18 @@ interface CommentProps {
   handleNewComment?: (parentId?: string, reply?: string) => void
   user?: User
   handleDeleteComment?: (commentId: string) => void
+  handleEditComment?: (commentId: string, text: string) => void
 }
 
-export const Comment = ({ root, newSection, comment, handleNewComment, user, handleDeleteComment }: CommentProps) => {
+export const Comment = ({
+  root,
+  newSection,
+  comment,
+  handleNewComment,
+  user,
+  handleDeleteComment,
+  handleEditComment,
+}: CommentProps) => {
   const [replying, setReplying] = React.useState(false)
   const [reply, setReply] = React.useState('')
 
@@ -104,6 +113,9 @@ export const Comment = ({ root, newSection, comment, handleNewComment, user, han
   const [showEditMenu, setShowEditMenu] = React.useState(false)
   const ownComment = useMemo(() => comment.userId === user?.id, [comment, user])
 
+  const [editing, setEditing] = React.useState(false)
+  const [editedMessage, setEditedMessage] = React.useState(comment.text)
+
   return (
     <article
       className={`ml-4 relative p-6 mb-3 text-base bg-white rounded-lg dark:bg-gray-900 ${
@@ -165,11 +177,19 @@ export const Comment = ({ root, newSection, comment, handleNewComment, user, han
             className="py-1 text-sm text-gray-700 dark:text-gray-200"
             aria-labelledby="dropdownMenuIconHorizontalButton"
           >
-            <li>
-              <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                Edit
-              </a>
-            </li>
+            {handleEditComment && (
+              <li>
+                <a
+                  onClick={() => {
+                    setShowEditMenu(false)
+                    setEditing(prev => !prev)
+                  }}
+                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
+                >
+                  Edit
+                </a>
+              </li>
+            )}
             {handleDeleteComment && (
               <li>
                 <a
@@ -183,7 +203,44 @@ export const Comment = ({ root, newSection, comment, handleNewComment, user, han
           </ul>
         </div>
       </footer>
-      <p className="text-gray-500 dark:text-gray-400">{comment.text}</p>
+      {!editing ? (
+        <p className="text-gray-500 dark:text-gray-400">{comment.text}</p>
+      ) : (
+        handleEditComment && (
+          <div className="mt-2">
+            <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+              <textarea
+                id="comment"
+                rows={3}
+                className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
+                placeholder="Write a comment..."
+                required
+                value={editedMessage}
+                onChange={e => setEditedMessage(e.target.value)}
+              />
+            </div>
+            <button
+              onClick={() => {
+                setEditing(false)
+                handleEditComment(comment.id, editedMessage)
+              }}
+              className="mr-3 inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800"
+            >
+              Edit comment
+            </button>
+            <button
+              onClick={() => {
+                setEditing(false)
+                setEditedMessage(comment.text)
+              }}
+              type="button"
+              className="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-gray-900 bg-white focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+            >
+              Cancel
+            </button>
+          </div>
+        )
+      )}
       {!replying && user && (
         <div className={`${root ? 'flex' : 'hidden'} items-center mt-4 space-x-4`}>
           <button
