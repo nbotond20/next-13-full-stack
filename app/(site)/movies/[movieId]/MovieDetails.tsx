@@ -192,7 +192,7 @@ export const MovieDetails = ({
 
   return (
     <>
-      <div className={'grid grid-rows-3 grid-flow-col gap-4 pt-10'}>
+      <div className={'flex flex-col gap-4 pt-10'}>
         <Image
           className={'rounded-lg row-span-3 md:col-span-3 self-center justify-self-center'}
           src={`${imgURL.slice(0, -1)}${movie.poster_path}`}
