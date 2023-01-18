@@ -1,9 +1,20 @@
 import prisma from './prismadb'
 
-export async function getComments({ movieId }: { movieId: string }) {
+export async function getCommentsByMovieId({ movieId }: { movieId: string }) {
   try {
     const comments = await prisma.comment.findMany({
       where: { movieId },
+    })
+    return { comments }
+  } catch (error) {
+    return { error }
+  }
+}
+
+export async function getCommentsByParentId({ parentId }: { parentId: string }) {
+  try {
+    const comments = await prisma.comment.findMany({
+      where: { parentId },
     })
     return { comments }
   } catch (error) {
@@ -47,7 +58,7 @@ export async function createComment({
   }
 }
 
-export async function getCommentById(commentId: string) {
+export async function getCommentById({ commentId }: { commentId: string }) {
   try {
     const comment = await prisma.comment.findUnique({
       where: { id: commentId },
@@ -78,6 +89,22 @@ export async function updateCommentVote({
     }
 
     return { updatedComment }
+  } catch (error) {
+    return { error }
+  }
+}
+
+export async function deleteComment({ commentId }: { commentId: string }) {
+  try {
+    const deletedComment = await prisma.comment.delete({
+      where: { id: commentId },
+    })
+
+    if (!deletedComment) {
+      return { error: 'Comment not deleted' }
+    }
+
+    return { deletedComment }
   } catch (error) {
     return { error }
   }

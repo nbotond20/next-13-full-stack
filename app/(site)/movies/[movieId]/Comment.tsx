@@ -22,9 +22,10 @@ interface CommentProps {
   comment: IComment
   handleNewComment?: (parentId?: string, reply?: string) => void
   user?: User
+  handleDeleteComment?: (commentId: string) => void
 }
 
-export const Comment = ({ root, newSection, comment, handleNewComment, user }: CommentProps) => {
+export const Comment = ({ root, newSection, comment, handleNewComment, user, handleDeleteComment }: CommentProps) => {
   const [replying, setReplying] = React.useState(false)
   const [reply, setReply] = React.useState('')
 
@@ -169,11 +170,16 @@ export const Comment = ({ root, newSection, comment, handleNewComment, user }: C
                 Edit
               </a>
             </li>
-            <li>
-              <a href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                Remove
-              </a>
-            </li>
+            {handleDeleteComment && (
+              <li>
+                <a
+                  onClick={() => handleDeleteComment(comment.id)}
+                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer"
+                >
+                  Remove
+                </a>
+              </li>
+            )}
           </ul>
         </div>
       </footer>

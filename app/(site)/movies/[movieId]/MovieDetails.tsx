@@ -51,6 +51,12 @@ const sortCommentsByDate = (comments: IComment[]) => {
   })
 }
 
+const sortCommentsByDescDate = (comments: IComment[]) => {
+  return comments.sort((a, b) => {
+    return new Date(a.date).getTime() - new Date(b.date).getTime()
+  })
+}
+
 export const MovieDetails = ({
   imgURL,
   movieId,
@@ -133,6 +139,28 @@ export const MovieDetails = ({
       }
     },
     [movieId, ratingsToDisplay, user]
+  )
+
+  const handleDeleteComment = useCallback(
+    async (commentId: string) => {
+      if (!user) return
+
+      const res = await fetch(`/api/comments`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          commentId,
+        }),
+      })
+
+      if (res.status === 200) {
+        const { parentId } = await res.json()
+        setCommentsToDisplay(prev => prev.filter(c => c.id !== parentId))
+      }
+    },
+    [user]
   )
 
   if (!movie || status === 'loading') {
@@ -265,7 +293,7 @@ export const MovieDetails = ({
           )}
           {commentsToDisplay.map((comment, idx) => {
             if (comment.parentId === null) {
-              const children = commentsToDisplay.filter(child => child.parentId === comment.id)
+              const children = sortCommentsByDescDate(commentsToDisplay.filter(child => child.parentId === comment.id))
               return (
                 <React.Fragment key={comment.id}>
                   <Comment
@@ -274,9 +302,10 @@ export const MovieDetails = ({
                     comment={comment}
                     handleNewComment={handleNewComment}
                     user={user}
+                    handleDeleteComment={handleDeleteComment}
                   />
                   {children.map(child => (
-                    <Comment comment={child} key={child.id} user={user} />
+                    <Comment comment={child} key={child.id} user={user} handleDeleteComment={handleDeleteComment} />
                   ))}
                 </React.Fragment>
               )

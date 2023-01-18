@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { MovieDetails } from '@app/(site)/movies/[movieId]/MovieDetails'
-import { getComments } from '@lib/prisma/comments'
+import { getCommentsByMovieId } from '@lib/prisma/comments'
 import { getRatingsByMovieId } from '@lib/prisma/ratings'
 import { authOptions } from '@pages/api/auth/[...nextauth]'
 import { unstable_getServerSession } from 'next-auth'
@@ -13,7 +13,7 @@ export default async function Page({ params }: { params: { movieId: string } }) 
   const MOVIES_DB_API_URL = process.env.MOVIES_DB_API_URL!
   const MOVIES_DB_API_KEY = process.env.MOVIES_DB_API_KEY!
 
-  const { comments } = await getComments({
+  const { comments } = await getCommentsByMovieId({
     movieId: params.movieId,
   })
   const { ratings } = await getRatingsByMovieId({
