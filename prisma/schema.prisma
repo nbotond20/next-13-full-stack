@@ -75,7 +75,7 @@ model Movie {
   user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
   Rating    Rating[]
-  Comment   Comment[]
+  // Comment   Comment[]
 }
 
 model Rating {
@@ -88,13 +88,14 @@ model Rating {
 }
 
 model Comment {
-  id      String @id @default(cuid())
-  text    String
-  movie   Movie  @relation(fields: [movieId], references: [id], onDelete: Cascade)
-  movieId String
-  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String
-  Like    Like[]
+  id        String   @id @default(cuid())
+  text      String
+  // movie     Movie    @relation(fields: [movieId], references: [id], onDelete: Cascade)
+  movieId   String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  createdAt DateTime @default(now())
+  Like      Like[]
 }
 
 model Like {
