@@ -4,7 +4,7 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
 const handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     const { userId, commentId } = req.body as { userId: string; commentId: string }
-    const { comment } = await getCommentById(commentId as string)
+    const { comment } = await getCommentById({ commentId })
 
     if (!comment) {
       return res.status(404).json({ message: `Comment with id ${commentId} was not found.` })
