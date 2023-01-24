@@ -25,7 +25,7 @@ const Header = () => {
               width={24}
               alt="Flowbite Logo"
             />
-            <span className="self-center whitespace-nowrap text-xl  font-semibold dark:text-white">Movies</span>
+            <span className="self-center whitespace-nowrap text-xl  font-semibold dark:text-white">MovieDB</span>
           </div>
         </Link>
         <div className="flex md:order-2">
