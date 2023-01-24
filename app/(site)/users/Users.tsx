@@ -20,8 +20,15 @@ const Users = ({ users }: UsersProps) => {
     const filtered = users.filter(user => {
       const name = user?.name?.toLowerCase()
       const email = user?.email?.toLowerCase()
+      const id = user?.id?.toLowerCase()
+      const role = user?.role?.toLowerCase()
       const searchValue = value.toLowerCase()
-      return name?.includes(searchValue) || email?.includes(searchValue)
+      return (
+        name?.includes(searchValue) ||
+        email?.includes(searchValue) ||
+        id?.includes(searchValue) ||
+        role?.includes(searchValue)
+      )
     })
     setFilteredUsers(filtered)
   }
@@ -144,7 +151,7 @@ const Users = ({ users }: UsersProps) => {
               >
                 <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap dark:text-white">
                   <Image
-                    className="rounded-full hidden md:block"
+                    className="rounded-full hidden sm:block"
                     src={user?.image || 'https://flowbite.com/docs/images/people/profile-picture-5.jpg'}
                     alt="Jese image"
                     width={40}

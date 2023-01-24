@@ -2,10 +2,11 @@ import prisma from '@lib/prisma/prismadb'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { User } from '@prisma/client'
 import NextAuth from 'next-auth'
+import type { NextAuthOptions } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({
@@ -54,14 +55,18 @@ export default NextAuth({
     jwt({ token, user }) {
       if (user) {
         token.role = user.role
+        token.id = user.id
       }
       return token
     },
     session({ session, token }) {
       if (session.user) {
         session.user.role = token.role
+        session.user.id = token.id
       }
       return session
     },
   },
-})
+}
+
+export default NextAuth(authOptions)
