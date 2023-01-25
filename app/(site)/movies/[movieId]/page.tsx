@@ -8,6 +8,8 @@ import { unstable_getServerSession } from 'next-auth'
 
 import { IComment } from './Comment'
 
+export const dynamic = 'force-dynamic'
+
 export default async function Page({ params }: { params: { movieId: string } }) {
   const imgURL = process.env.MOVIES_DB_API_IMAGE_URL!
   const MOVIES_DB_API_URL = process.env.MOVIES_DB_API_URL!
