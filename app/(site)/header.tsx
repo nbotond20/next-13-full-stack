@@ -79,7 +79,7 @@ const Header = () => {
             </HeaderLink>
           )}
           {session?.user?.email === 'nuszplbotond@gmail.com' && (
-            <HeaderLink href="/gym" active={pathname?.startsWith('/users')}>
+            <HeaderLink href="/gym" active={pathname?.startsWith('/gym')}>
               Gym Progress
             </HeaderLink>
           )}
