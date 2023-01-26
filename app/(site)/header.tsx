@@ -78,6 +78,11 @@ const Header = () => {
               Users
             </HeaderLink>
           )}
+          {session?.user?.email === 'nuszplbotond@gmail.com' && (
+            <HeaderLink href="/gym" active={pathname?.startsWith('/users')}>
+              Gym Progress
+            </HeaderLink>
+          )}
         </Navbar.Collapse>
       </Navbar>
     </Flowbite>
