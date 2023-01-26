@@ -35,7 +35,7 @@ export const Gym = () => {
   const days = gym.gym as Day[] // TODO: remove this
   const todayDayNumber = React.useMemo(() => new Date().getDay(), [])
 
-  const todaysWorkout = days[todayDayNumber + 1]
+  const todaysWorkout = days[todayDayNumber]
 
   if ((!session || session?.user?.email !== 'nuszplbotond@gmail.com') && status !== 'loading') {
     router.replace('/')
