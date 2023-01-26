@@ -2,6 +2,9 @@
 
 import React from 'react'
 
+import { useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+
 import gym from './gym.json'
 
 /* interface GymProps {
@@ -24,6 +27,8 @@ interface Day {
 }
 
 export const Gym = () => {
+  const { data: session, status } = useSession()
+  const router = useRouter()
   /* const days = React.useMemo(() => {
     return user.gym ? (JSON.parse(user.gym).gym as Day[]) : []
   }, [user]) */
@@ -31,6 +36,11 @@ export const Gym = () => {
   const todayDayNumber = React.useMemo(() => new Date().getDay(), [])
 
   const todaysWorkout = days[todayDayNumber + 1]
+
+  if ((!session || session?.user?.email !== 'nuszplbotond@gmail.com') && status !== 'loading') {
+    router.replace('/')
+    return null
+  }
 
   if (!todaysWorkout) return <p>No workout today</p>
 
