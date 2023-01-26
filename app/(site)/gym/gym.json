@@ -1,0 +1,494 @@
+{
+  "gym": [
+    {
+      "day": "Sunday",
+      "exercises": [
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "DB Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "Cable Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Pull ups",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Lat Pulldowns",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "Inc. Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "DB Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Rear Delts",
+          "idealRepRange": [8, 12],
+          "name": "Rev Pec Deck",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Middle Back",
+          "idealRepRange": [8, 12],
+          "name": "Rows",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        }
+      ],
+      "split": "Upper"
+    },
+    {
+      "day": "Monday",
+      "exercises": [
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "DB Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "Cable Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Pull ups",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Lat Pulldowns",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "Inc. Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "DB Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Rear Delts",
+          "idealRepRange": [8, 12],
+          "name": "Rev Pec Deck",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Middle Back",
+          "idealRepRange": [8, 12],
+          "name": "Rows",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        }
+      ],
+      "split": "Upper"
+    },
+    {
+      "day": "Tuesday",
+      "exercises": [
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "DB Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "Cable Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Pull ups",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Lat Pulldowns",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "Inc. Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "DB Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Rear Delts",
+          "idealRepRange": [8, 12],
+          "name": "Rev Pec Deck",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Middle Back",
+          "idealRepRange": [8, 12],
+          "name": "Rows",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        }
+      ],
+      "split": "Upper"
+    },
+    {
+      "day": "Wednesday",
+      "exercises": [
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "DB Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "Cable Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Pull ups",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Lat Pulldowns",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "Inc. Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "DB Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Rear Delts",
+          "idealRepRange": [8, 12],
+          "name": "Rev Pec Deck",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Middle Back",
+          "idealRepRange": [8, 12],
+          "name": "Rows",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        }
+      ],
+      "split": "Upper"
+    },
+    {
+      "day": "Thursday",
+      "exercises": [
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "DB Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "Cable Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Pull ups",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Lat Pulldowns",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "Inc. Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "DB Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Rear Delts",
+          "idealRepRange": [8, 12],
+          "name": "Rev Pec Deck",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Middle Back",
+          "idealRepRange": [8, 12],
+          "name": "Rows",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        }
+      ],
+      "split": "Upper"
+    },
+    {
+      "day": "Friday",
+      "exercises": [
+        {
+          "bodyPart": "Calves",
+          "idealRepRange": [10, 15],
+          "name": "Standing Calf Raises",
+          "reps": 15,
+          "sets": 3,
+          "weight": 30
+        },
+        {
+          "bodyPart": "Calves",
+          "idealRepRange": [10, 15],
+          "name": "Seated Calf Raises",
+          "reps": 15,
+          "sets": 3,
+          "weight": 40
+        },
+        {
+          "bodyPart": "Quads",
+          "idealRepRange": [8, 12],
+          "name": "Leg Press",
+          "reps": 10,
+          "sets": 3,
+          "weight": 100
+        },
+        {
+          "bodyPart": "Quads",
+          "idealRepRange": [8, 12],
+          "name": "Leg Extensions",
+          "reps": 13,
+          "sets": 3,
+          "weight": 48
+        },
+        {
+          "bodyPart": "Hamstrings",
+          "idealRepRange": [8, 12],
+          "name": "Inc. Bench Press",
+          "reps": 12,
+          "sets": 3,
+          "weight": 43
+        },
+        {
+          "bodyPart": "Abs",
+          "idealRepRange": [8, 15],
+          "name": "Leg Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 0
+        },
+        {
+          "bodyPart": "Deep back",
+          "idealRepRange": [8, 15],
+          "name": "Hyperextensions",
+          "reps": 14,
+          "sets": 0,
+          "weight": 10
+        },
+        {
+          "bodyPart": "Biceps",
+          "idealRepRange": [8, 12],
+          "name": "BB Bicep Curls",
+          "reps": 12,
+          "sets": 0,
+          "weight": 10
+        }
+      ],
+      "split": "Upper"
+    },
+    {
+      "day": "Saturday",
+      "exercises": [
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "DB Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Side Delts",
+          "idealRepRange": [8, 12],
+          "name": "Cable Lateral Raises",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Pull ups",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Back Lats",
+          "idealRepRange": [8, 12],
+          "name": "Lat Pulldowns",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "Inc. Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Chest",
+          "idealRepRange": [8, 12],
+          "name": "DB Bench Press",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Rear Delts",
+          "idealRepRange": [8, 12],
+          "name": "Rev Pec Deck",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        },
+        {
+          "bodyPart": "Middle Back",
+          "idealRepRange": [8, 12],
+          "name": "Rows",
+          "reps": 12,
+          "sets": 0,
+          "weight": 55
+        }
+      ],
+      "split": "Upper"
+    }
+  ]
+}

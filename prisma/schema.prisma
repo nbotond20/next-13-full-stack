@@ -50,6 +50,7 @@ model User {
   sessions      Session[]
   Movie         Movie[]
   role          Role      @default(USER)
+  gym           String?   @db.String
 }
 
 model VerificationToken {
