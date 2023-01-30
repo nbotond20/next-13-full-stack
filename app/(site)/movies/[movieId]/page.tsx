@@ -4,7 +4,7 @@ import { MovieDetails } from '@app/(site)/movies/[movieId]/MovieDetails'
 import { getCommentsByMovieId } from '@lib/prisma/comments'
 import { getRatingsByMovieId } from '@lib/prisma/ratings'
 import { authOptions } from '@pages/api/auth/[...nextauth]'
-import { unstable_getServerSession } from 'next-auth'
+import { getServerSession } from 'next-auth'
 
 import { IComment } from './Comment'
 
@@ -22,7 +22,7 @@ export default async function Page({ params }: { params: { movieId: string } }) 
     movieId: params.movieId,
   })
 
-  const session = await unstable_getServerSession(authOptions)
+  const session = await getServerSession(authOptions)
 
   const commentsToPass: IComment[] = comments?.map(c => ({
     ...c,

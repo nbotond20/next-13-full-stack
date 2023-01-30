@@ -2,12 +2,12 @@ import React from 'react'
 
 import { getUserById } from '@lib/prisma/users'
 import { authOptions } from '@pages/api/auth/[...nextauth]'
-import { unstable_getServerSession } from 'next-auth'
+import { getServerSession } from 'next-auth'
 
 import { Gym } from './Gym'
 
 const GymPage = async () => {
-  const session = await unstable_getServerSession(authOptions)
+  const session = await getServerSession(authOptions)
 
   if (!session || !session.user || session.user.email !== 'nuszplbotond@gmail.com') {
     return null
