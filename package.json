@@ -23,7 +23,7 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "flowbite": "^1.6.4",
-    "flowbite-react": "^0.3.8",
+    "flowbite-react": "^0.4.2",
     "lint-staged": "^13.2.0",
     "next": "13.1.6",
     "next-auth": "^4.20.1",
